@@ -1,7 +1,8 @@
-package com.promand.Team2;
+package pl.byd.promand.Team2;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.promand.Team2.R;
 
 public class MyActivity extends Activity {
     /**
