@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Team2</string>
+    <string name="app_name">PHYSCOMP</string>
+    <string name="btn_addVisit">Add Visit</string>
+    <string name="btn_viewSchedule">View Schedule</string>
+    <string name="btn_manage">Manage</string>
+    <string name="btn_search">Search</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_choose">Choose</string>
+    <string name="temp">Some information</string>
+    <string name="your_choose">Your choose:</string>
+    <string name="btn_save">Save</string>
+    <string name="choose_date">Date:</string>
+    <string name="choose_time">Time:</string>
+    <string name="choose_length">Length visit:</string>
+    <string name="login">Login:</string>
+    <string name="pass">Password:</string>
+    <string name="btn_login">login</string>
+    <string name="schedule">Schedule:</string>
+    <string name="btn_back"> Back</string>
 </resources>

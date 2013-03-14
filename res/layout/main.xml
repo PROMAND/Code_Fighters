@@ -4,10 +4,29 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
+    <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World, MyActivity"
+            android:text="@string/btn_addVisit"
+            android:id="@+id/btn_addVisit"
+            android:drawableLeft="@drawable/calendar_today"
+            android:onClick="btn_addVisit_click"
+            />
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btn_schedule_click"
+            android:drawableLeft="@drawable/office_calendar"
+            android:text="@string/btn_viewSchedule"
+            android:id="@+id/btn_viewSchedule"
+            />
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_manage"
+            android:drawableLeft="@drawable/edit_find"
+            android:onClick="btn_searchEdit_click"
+            android:id="@+id/btn_search"
             />
 </LinearLayout>
 

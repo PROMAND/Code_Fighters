@@ -12,5 +12,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name="pl.byd.promand.Team2.otherActivities.SearchEditActivity"
+                android:label="@string/app_name" >
+        </activity>
+        <activity
+                android:name="pl.byd.promand.Team2.otherActivities.VisitAdditingActivity"
+                android:label="@string/app_name" >
+        </activity>
+        <activity
+                android:name="pl.byd.promand.Team2.otherActivities.MainActivity"
+                android:label="@string/app_name" >
+        </activity>
+        <activity
+                android:name="pl.byd.promand.Team2.otherActivities.ScheduleActivity"
+                android:label="@string/app_name" >
+        </activity>
     </application>
 </manifest> 
