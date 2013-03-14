@@ -8,16 +8,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Asus
- * Date: 13.03.13
- * Time: 15:58
- * To change this template use File | Settings | File Templates.
- */
-public class VisitAdditingActivity extends Activity {
+public class VisitAdditingActivity extends SherlockActivity {
    DatePickerDialog dataPicker;
     private String _Year;
     private String _Month;

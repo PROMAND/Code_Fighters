@@ -6,16 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Asus
- * Date: 12.03.13
- * Time: 23:30
- * To change this template use File | Settings | File Templates.
- */
-public class SearchEditActivity extends Activity {
+public class SearchEditActivity extends SherlockActivity {
     Spinner spinner;
     @Override
     public void onCreate(Bundle savedInstanceState) {

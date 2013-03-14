@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
 
 
@@ -14,7 +15,7 @@ import com.promand.Team2.R;
  * Time: 10:07
  * To change this template use File | Settings | File Templates.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends SherlockActivity {
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);

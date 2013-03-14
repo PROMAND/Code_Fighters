@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
 import pl.byd.promand.Team2.otherActivities.MainActivity;
 
-public class MyActivity extends Activity {
+public class MyActivity extends SherlockActivity {
    final String PASSWORD = "12345";
    final String LOGIN = "PHYSCOMP";
     @Override
