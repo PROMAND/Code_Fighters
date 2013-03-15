@@ -3,6 +3,7 @@ package pl.byd.promand.Team2.otherActivities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -76,5 +77,9 @@ public class VisitAdditingActivity extends SherlockActivity {
                     tv_result.setText(_Hour + ":" + _Min );
                 }
             };
+    public void btn_save_click(View v){
+        Intent intent = new Intent(this, PatientActivity.class);
+        VisitAdditingActivity.this.startActivity(intent);
+    }
 }
 

@@ -29,5 +29,9 @@
                 android:name="pl.byd.promand.Team2.otherActivities.ScheduleActivity"
                 android:label="@string/app_name" >
         </activity>
+        <activity
+                android:name="pl.byd.promand.Team2.otherActivities.PatientActivity"
+                android:label="@string/app_name" >
+        </activity>
     </application>
 </manifest> 

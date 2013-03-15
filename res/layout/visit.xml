@@ -67,6 +67,7 @@
                     android:text="@string/btn_save"
                     android:drawableLeft="@drawable/floppy_unmount"
                     android:id="@+id/btn_save"
+                    android:onClick="btn_save_click"
                     android:layout_gravity="right"
                     />
         </LinearLayout>
