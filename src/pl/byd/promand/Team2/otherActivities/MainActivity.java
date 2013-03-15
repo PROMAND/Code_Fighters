@@ -8,13 +8,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
 
 
-/**
- * Created with IntelliJ IDEA.
- * User: Asus
- * Date: 14.03.13
- * Time: 10:07
- * To change this template use File | Settings | File Templates.
- */
+
 public class MainActivity extends SherlockActivity {
     @Override
     public void onCreate(Bundle bundle){
