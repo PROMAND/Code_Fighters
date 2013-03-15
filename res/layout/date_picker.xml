@@ -14,7 +14,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_choose"
-                android:layout_weight="1"
+
                 android:drawableLeft="@drawable/calendar_selection_week"
                 android:id="@+id/btn_chooseDate"
                 android:onClick="btn_chooseDate_click"/>
@@ -24,22 +24,29 @@
                 android:text="@string/btn_choose"
                 android:drawableLeft="@drawable/clock"
                 android:id="@+id/btn_chooseTime"
-                android:layout_weight="1"
-                android:onClick="btn_chooseTime_click"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/duration"
-                android:layout_weight="1"
-                android:id="@+id/duration"
-                android:layout_gravity="center_vertical"/>
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/sp_chooseLength"
-                android:layout_weight="1"
-                android:entries="@array/visit"
-                android:layout_gravity="center"/>
+
+                android:onClick="btn_chooseTime_click"
+                />
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration"
+                        android:id="@+id/duration"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"/>
+                <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sp_chooseLength"
+                        android:entries="@array/visit"
+                        android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
