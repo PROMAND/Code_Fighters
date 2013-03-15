@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_choose"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/calendar_selection_week"
+                android:id="@+id/btn_chooseDate"
+                android:onClick="btn_chooseDate_click"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_choose"
+                android:drawableLeft="@drawable/clock"
+                android:id="@+id/btn_chooseTime"
+                android:layout_weight="1"
+                android:onClick="btn_chooseTime_click"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/duration"
+                android:layout_weight="1"
+                android:id="@+id/duration"
+                android:layout_gravity="center_vertical"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sp_chooseLength"
+                android:layout_weight="1"
+                android:entries="@array/visit"
+                android:layout_gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_date"
+                android:id="@+id/tv_yourChoose"
+                android:layout_gravity="right"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/temp"
+                android:id="@+id/tv_yourDateResult"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_time"
+                android:id="@+id/tv_yourChoose"
+                android:layout_gravity="right"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/temp"
+                android:id="@+id/tv_yourTimeResult"
+                />
+
+    </LinearLayout>
+</LinearLayout>
