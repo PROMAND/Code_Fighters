@@ -1,4 +1,4 @@
-package com.example.SqlDatabasePhyscomp;
+package pl.byd.promand.Team2.sqlWorker;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

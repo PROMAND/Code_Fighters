@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 import java.util.Dictionary;
 
@@ -23,7 +24,7 @@ public class PatientActivity extends SherlockActivity {
         super.onCreate(bundle);
         setContentView(R.layout.patient);
     }
-
+        DbData datasource;
     public void btn_save_patient_click(View v){
         EditText et_name = (EditText)findViewById(R.id.et_name);
         EditText et_surname = (EditText)findViewById(R.id.et_surname);
@@ -31,8 +32,9 @@ public class PatientActivity extends SherlockActivity {
         String surname = String.valueOf(et_surname.getText());
         fields.put("name",name);
         fields.put("surname",surname);
+        datasource = new DbData(this);
+        datasource.open();
 
-        Toast.makeText(this,fields.get("name"),1000).show();
     }
 
 }

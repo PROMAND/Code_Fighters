@@ -1,4 +1,4 @@
-package com.example.SqlDatabasePhyscomp;
+package pl.byd.promand.Team2.sqlWorker;
 
 public class DbCore {
     private long id;
