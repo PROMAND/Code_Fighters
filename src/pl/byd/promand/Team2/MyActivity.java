@@ -28,8 +28,8 @@ public class MyActivity extends SherlockActivity {
             Toast.makeText(this,"Incorrect login or password!",1000).show();
         }
         else{
-        Intent intent = new Intent(this, MainActivity.class);
-        MyActivity.this.startActivity(intent);
+            Intent intent = new Intent(this, MainActivity.class);
+            MyActivity.this.startActivity(intent);
         }
     }
 
