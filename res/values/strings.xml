@@ -37,5 +37,5 @@
     <string name="payer">Payer information:</string>
     <string name="name_of_company">Name of company:</string>
     <string name="address">Address:</string>
-
+    <string name="visit">Visit:</string>
 </resources>
