@@ -92,6 +92,7 @@
                 android:layout_height="fill_parent"
                 android:drawableLeft="@drawable/floppy_unmount"
                 android:text="@string/btn_save"
+                android:onClick="btn_save_payer_click"
                 android:id="@+id/btn_save_payer" />
     </LinearLayout>
 </LinearLayout>
