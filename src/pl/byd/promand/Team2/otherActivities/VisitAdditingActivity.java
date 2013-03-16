@@ -77,9 +77,6 @@ public class VisitAdditingActivity extends SherlockActivity {
                     tv_result.setText(_Hour + ":" + _Min );
                 }
             };
-    public void btn_save_click(View v){
-        Intent intent = new Intent(this, PatientActivity.class);
-        VisitAdditingActivity.this.startActivity(intent);
-    }
+
 }
 
