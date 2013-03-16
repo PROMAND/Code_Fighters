@@ -3,12 +3,9 @@ package pl.byd.promand.Team2.otherActivities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
-import pl.byd.promand.Team2.sqlWorker.DbData;
 
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +17,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class PatientActivity extends SherlockActivity {
-    Map<String, String> fields = new HashMap<String, String>();
+    Map<String, String> patientFields = new HashMap<String, String>();
     private void SaveInformationToDict(){
         EditText et_name = (EditText)findViewById(R.id.et_name);
         EditText et_surname = (EditText)findViewById(R.id.et_surname);
@@ -44,16 +41,16 @@ public class PatientActivity extends SherlockActivity {
         String phone = String.valueOf(et_phone.getText());
         String additional_info = String.valueOf(et_additional_info.getText());
 
-        fields.put("name",name);
-        fields.put("surname",surname);
-        fields.put("sex",sex);
-        fields.put("date_of_birth",date_of_birth);
-        fields.put("id_patient",id_patient);
-        fields.put("country",country);
-        fields.put("postal_code",postal_code);
-        fields.put("email",email);
-        fields.put("phone",phone);
-        fields.put("additional_info",additional_info);
+        patientFields.put("name", name);
+        patientFields.put("surname", surname);
+        patientFields.put("sex", sex);
+        patientFields.put("date_of_birth", date_of_birth);
+        patientFields.put("id_patient", id_patient);
+        patientFields.put("country", country);
+        patientFields.put("postal_code", postal_code);
+        patientFields.put("email", email);
+        patientFields.put("phone", phone);
+        patientFields.put("additional_info", additional_info);
     }
     @Override
     public void onCreate(Bundle bundle){
