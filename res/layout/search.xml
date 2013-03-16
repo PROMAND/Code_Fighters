@@ -66,6 +66,7 @@
                         android:layout_weight="1"
                         android:text="@string/btn_add"
                         android:drawableLeft="@drawable/plus_grey"
+                        android:onClick="btn_add_click"
                         android:id="@+id/btn_add"
                         android:layout_gravity="bottom"/>
                 <Button

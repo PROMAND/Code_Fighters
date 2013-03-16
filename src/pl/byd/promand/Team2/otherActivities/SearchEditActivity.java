@@ -1,6 +1,7 @@
 package pl.byd.promand.Team2.otherActivities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,4 +35,8 @@ public class SearchEditActivity extends SherlockActivity {
         }
 
     };
+    public void btn_add_click(View v){
+            Intent intent = new Intent(this, PatientActivity.class);
+            SearchEditActivity.this.startActivity(intent);
+    }
 }
