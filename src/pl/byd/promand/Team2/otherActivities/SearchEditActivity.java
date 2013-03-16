@@ -12,6 +12,7 @@ import com.promand.Team2.R;
 
 public class SearchEditActivity extends SherlockActivity {
     Spinner spinner;
+    Intent intent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +23,19 @@ public class SearchEditActivity extends SherlockActivity {
     private  AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener(){
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             Object item = parent.getItemAtPosition(pos);
+            Button btn = (Button)findViewById(R.id.btn_add);
             if(item.equals("Visit")){
-                Button btn = (Button)findViewById(R.id.btn_add);
                 btn.setEnabled(false);
             }
             else {
-                Button btn = (Button)findViewById(R.id.btn_add);
-                btn.setEnabled(true);
+                if(item.equals("Patient")){
+                    btn.setEnabled(true);
+                    intent = new Intent(SearchEditActivity.this, PatientActivity.class);
+                }
+                else{
+                     btn.setEnabled(true);
+                    intent = new Intent(SearchEditActivity.this, PayerActivity.class);
+                }
             }
         }
         public void onNothingSelected(AdapterView<?> parent) {
@@ -36,7 +43,8 @@ public class SearchEditActivity extends SherlockActivity {
 
     };
     public void btn_add_click(View v){
-            Intent intent = new Intent(this, PatientActivity.class);
+
+
             SearchEditActivity.this.startActivity(intent);
     }
 }
