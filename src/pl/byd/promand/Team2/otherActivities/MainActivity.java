@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
-
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 
 public class MainActivity extends SherlockActivity {
+    DbData datasource;
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.main);
+        datasource = new DbData(this);
+        datasource.open();
     }
     public void btn_searchEdit_click(View v){
         Intent intent = new Intent(this, SearchEditActivity.class);
