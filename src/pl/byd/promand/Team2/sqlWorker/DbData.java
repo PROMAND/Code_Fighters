@@ -15,7 +15,7 @@ public class DbData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private static final String myQ = "select * from patients as p LEFT JOIN contacts as c on p._id = c._id";
+    private static final String myQPatientList = "select _id, name, surname from patients";
 
     public DbData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -47,7 +47,7 @@ public class DbData {
            return null;
        } else {
            open();
-           Cursor result = database.rawQuery(myQ, null);
+           Cursor result = database.rawQuery(myQPatientList, null);
            ContentValues temp = new ContentValues();
            result.moveToFirst();
            int id;
