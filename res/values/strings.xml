@@ -46,5 +46,5 @@
     <string name="street">Street:</string>
     <string name="number_of_house">Number of house:</string>
     <string name="number_of_flat">Number of flat:</string>
-    <string name="text_about">This page is made for medical doctors who can make different operations with that. For example they can add a patient, a payer and a visit. Also they can write feedback after visit. This application stores clinical data and data about prescribed drugs.</string>
+    <string name="text_about">This application is made for medical doctors who can make different operations with that. They can add a visit, a patient and a payer. About patients and payers there there are the most important information. All visits are visible in schedule view. After visit they can write feedback about it - for example analysis result. This application stores clinical data and data about prescribed drugs. </string>
 </resources>
