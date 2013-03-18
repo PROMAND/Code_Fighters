@@ -44,7 +44,6 @@ public class SearchEditActivity extends SherlockActivity {
     };
     public void btn_add_click(View v){
 
-
             SearchEditActivity.this.startActivity(intent);
     }
 }

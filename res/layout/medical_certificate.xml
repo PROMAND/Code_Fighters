@@ -13,11 +13,13 @@
 
         <LinearLayout
                 android:orientation="horizontal"
+                android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_weight="1"
+                    android:hint="@string/temp"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_select_visit" />
             <Button
@@ -26,6 +28,24 @@
                     android:text="@string/btn_choose"
                     android:layout_weight="1"
                     android:id="@+id/btn_select_visit"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="fill_parent">
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:hint="@string/temp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et_select_payer" />
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_choose"
+                    android:layout_weight="1"
+                    android:id="@+id/btn_select_payer"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

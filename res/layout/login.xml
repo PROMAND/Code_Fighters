@@ -43,7 +43,7 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/temp"
+                    android:hint="@string/temp"
                     android:id="@+id/et_login"
                     />
             </LinearLayout>
@@ -63,7 +63,7 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/temp"
+                    android:hint="@string/temp"
                     android:id="@+id/et_pass"/>
         </LinearLayout>
         <Button
