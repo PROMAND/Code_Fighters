@@ -53,14 +53,17 @@ public class DbData {
            int id;
            String name;
            String surname;
+           String pesel;
            Log.v("tag","startLoop");
            while(result.moveToNext()){
                id = result.getInt(0);
                name = result.getString(1);
                surname = result.getString(2);
+               pesel = result.getString(5);
                temp.put("id",id);
                temp.put("name",name);
                temp.put("surname",surname);
+               temp.put("pesel",pesel);
                listPatient.add(temp);
            }
 
