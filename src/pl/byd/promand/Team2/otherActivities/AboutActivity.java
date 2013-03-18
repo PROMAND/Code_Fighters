@@ -16,6 +16,6 @@ public class AboutActivity extends SherlockActivity {
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.about);
     }
 }
