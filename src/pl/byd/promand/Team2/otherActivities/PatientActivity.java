@@ -37,6 +37,11 @@ public class PatientActivity extends SherlockActivity {
         EditText et_email = (EditText)findViewById(R.id.et_email);
         EditText et_phone = (EditText)findViewById(R.id.et_phone);
         EditText et_additional_info = (EditText)findViewById(R.id.et_additional_info);
+        EditText et_state = (EditText)findViewById(R.id.et_state);
+        EditText et_town = (EditText)findViewById(R.id.et_town);
+        EditText et_street = (EditText)findViewById(R.id.et_street);
+        EditText et_number_of_house = (EditText)findViewById(R.id.et_number_of_house);
+        EditText et_number_of_flat = (EditText)findViewById(R.id.et_number_of_flat);
 
         String name = String.valueOf(et_name.getText());
         String surname = String.valueOf(et_surname.getText());
@@ -48,6 +53,12 @@ public class PatientActivity extends SherlockActivity {
         String email = String.valueOf(et_email.getText());
         String phone = String.valueOf(et_phone.getText());
         String additional_info = String.valueOf(et_additional_info.getText());
+        String state = String.valueOf(et_state.getText());
+        String town = String.valueOf(et_town.getText());
+        String street = String.valueOf(et_street.getText());
+        String number_of_house = String.valueOf(et_number_of_house.getText());
+        String number_of_flat = String.valueOf(et_number_of_flat.getText());
+
 
 
         patientFields.put("name", name);
@@ -59,6 +70,11 @@ public class PatientActivity extends SherlockActivity {
         patientAddressFields.put("postal_code", postal_code);
         patientAddressFields.put("email", email);
         patientAddressFields.put("phone", phone);
+        patientAddressFields.put("state",state);
+        patientAddressFields.put("town",town);
+        patientAddressFields.put("street",street);
+        patientAddressFields.put("number_of_house",number_of_house);
+        patientAddressFields.put("number_of_flat",number_of_flat);
         patientFields.put("additional_info", additional_info);
 
         long test = db.insertPatient(patientFields);
