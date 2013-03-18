@@ -1,13 +1,13 @@
 package pl.byd.promand.Team2.otherActivities;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
-
-import java.util.HashMap;
-import java.util.Map;
+import pl.byd.promand.Team2.sqlWorker.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,8 +17,13 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class PatientActivity extends SherlockActivity {
-    Map<String, String> patientFields = new HashMap<String, String>();
+    private ContentValues patientFields = new ContentValues();
+    private ContentValues patientAddressFields = new ContentValues();
+    private DbData db = new DbData(this);
+    private static final String TABLE_PATIENTS = "patients";
+
     private void SaveInformationToDict(){
+        db.open();
         EditText et_name = (EditText)findViewById(R.id.et_name);
         EditText et_surname = (EditText)findViewById(R.id.et_surname);
         EditText et_sex = (EditText)findViewById(R.id.et_sex);
@@ -41,24 +46,32 @@ public class PatientActivity extends SherlockActivity {
         String phone = String.valueOf(et_phone.getText());
         String additional_info = String.valueOf(et_additional_info.getText());
 
+
         patientFields.put("name", name);
         patientFields.put("surname", surname);
         patientFields.put("sex", sex);
         patientFields.put("date_of_birth", date_of_birth);
-        patientFields.put("id_patient", id_patient);
-        patientFields.put("country", country);
-        patientFields.put("postal_code", postal_code);
-        patientFields.put("email", email);
-        patientFields.put("phone", phone);
+        patientFields.put("pesel", id_patient);
+        patientAddressFields.put("country", country);
+        patientAddressFields.put("postal_code", postal_code);
+        patientAddressFields.put("email", email);
+        patientAddressFields.put("phone", phone);
         patientFields.put("additional_info", additional_info);
+
+        long test = db.insertPatient(patientFields);
+        patientAddressFields.put("patient_id", test);
+        db.insertPatientAddress(patientAddressFields);
+        db.close();
     }
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.patient);
+        DbData db = null;
     }
 
     public void btn_save_patient_click(View v){
+        DbData db = null;
         SaveInformationToDict();
     }
 

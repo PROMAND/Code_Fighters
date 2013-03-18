@@ -9,8 +9,8 @@ import android.util.Log;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     //main db definitions
-    private static final String DATABASE_NAME = "physcomp1.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "physcomp.db";
+    private static final int DATABASE_VERSION = 3;
 
     //table names definition
     public static final String TABLE_USERS = "user_doc";
@@ -71,7 +71,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 + DATEOFBIRTH + " text, "
                 + PESEL + " integer unique not null, "
                 + ADDITIONAL_INFO + " text, "
-                + DRUG_LIST_ID + "integer  );";
+                + DRUG_LIST_ID + "text  );";
     private static final String CONTACTS_CREATE =
             "create table IF NOT EXISTS "
                 + TABLE_CONTACTS + "("
@@ -85,7 +85,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 + NUMBER_OF_FLAT + " text, "
                 + PHONE + " text, "
                 + EMAIL + " text, "
-                + PATIENT_ID + "integer  );" ;
+                + PATIENT_ID + " integer );" ;
     private static final String VISITS_CREATE =
             "create table IF NOT EXISTS "
                 + TABLE_VISITS + "("
