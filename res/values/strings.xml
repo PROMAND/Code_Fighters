@@ -41,5 +41,10 @@
     <string name="appear">Appear</string>
     <string name="btn_medical_certificate">Add medical certificate</string>
     <string name="list">Result list:</string>
+    <string name="state">State:</string>
+    <string name="town">Town:</string>
+    <string name="street">Street:</string>
+    <string name="number_of_house">Number of house:</string>
+    <string name="number_of_flat">Number of flat:</string>
     <string name="text_about">This page is made for medical doctors who can make different operations with that. For example they can add a patient, a payer and a visit. Also they can write feedback after visit. This application stores clinical data and data about prescribed drugs.</string>
 </resources>
