@@ -4,6 +4,7 @@
         <item>Visit</item>
         <item>Patient</item>
         <item>Payer</item>
+        <item>Medical certificate</item>
     </string-array>
     <string-array name="visit">
         <item>15</item>

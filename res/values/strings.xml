@@ -38,4 +38,6 @@
     <string name="name_of_company">Name of company:</string>
     <string name="address">Address:</string>
     <string name="visit">Visit:</string>
+    <string name="appear">Appear</string>
+    <string name="btn_medical_certificate">Add medical certificate</string>
 </resources>

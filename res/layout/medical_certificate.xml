@@ -47,23 +47,50 @@
                     android:layout_weight="1"
                     android:id="@+id/btn_select_payer"/>
         </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/appear"
+                    android:id="@+id/cb_appear"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="fill_parent">
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="fill_parent">
+            <ListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/lv_drug"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:gravity="bottom">
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_save"
+                    android:id="@+id/btn_save_medical_certificate"
+                    android:drawableLeft="@drawable/floppy_unmount"
+                    android:layout_gravity="right"
+                    />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

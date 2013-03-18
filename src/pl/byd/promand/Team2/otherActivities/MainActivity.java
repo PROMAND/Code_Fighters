@@ -30,4 +30,8 @@ public class MainActivity extends SherlockActivity {
         Intent intent = new  Intent(this, ScheduleActivity.class);
         MainActivity.this.startActivity(intent);
     }
+    public void btn_medical_certificate_click(View v){
+        Intent intent = new Intent(this,AddMedicalCertificate.class);
+        MainActivity.this.startActivity(intent);
+    }
 }

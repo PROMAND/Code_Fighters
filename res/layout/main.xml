@@ -28,5 +28,13 @@
             android:onClick="btn_searchEdit_click"
             android:id="@+id/btn_search"
             />
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_medical_certificate"
+            android:drawableLeft="@drawable/medical_certificate"
+            android:onClick="btn_medical_certificate_click"
+            android:id="@+id/btn_medical_certificate"
+            />
 </LinearLayout>
 

@@ -24,6 +24,27 @@ public class SearchEditActivity extends SherlockActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             Object item = parent.getItemAtPosition(pos);
             Button btn = (Button)findViewById(R.id.btn_add);
+            /*switch (String.valueOf(item)){
+                case "Visit": {
+                    btn.setEnabled(false);
+                    break;
+                }
+                case "Patient":{
+                    btn.setEnabled(true);
+                    intent = new Intent(SearchEditActivity.this, PatientActivity.class);
+                    break;
+                }
+                case "Payer":{
+                    btn.setEnabled(true);
+                    intent = new Intent(SearchEditActivity.this, PayerActivity.class);
+                    break;
+                }
+                case "Medical certificate":{
+                    btn.setEnabled(true);
+                    intent = new Intent(SearchEditActivity.this, AddMedicalCertificate.class);
+                    break;
+                }
+            }  */
             if(item.equals("Visit")){
                 btn.setEnabled(false);
             }
@@ -33,8 +54,14 @@ public class SearchEditActivity extends SherlockActivity {
                     intent = new Intent(SearchEditActivity.this, PatientActivity.class);
                 }
                 else{
+                    if(item.equals("Payer")){
                      btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PayerActivity.class);
+                    }
+                    else{
+                        btn.setEnabled(true);
+                        intent = new Intent(SearchEditActivity.this, AddMedicalCertificate.class);
+                    }
                 }
             }
         }
@@ -43,7 +70,6 @@ public class SearchEditActivity extends SherlockActivity {
 
     };
     public void btn_add_click(View v){
-
             SearchEditActivity.this.startActivity(intent);
     }
 }
