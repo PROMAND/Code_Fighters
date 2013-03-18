@@ -27,6 +27,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/btn_choose"
                     android:layout_weight="1"
+                    android:onClick="btn_select_visit_click"
+                    android:drawableLeft="@drawable/calendar_today"
                     android:id="@+id/btn_select_visit"/>
         </LinearLayout>
         <LinearLayout
@@ -45,7 +47,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/btn_choose"
                     android:layout_weight="1"
-                    android:id="@+id/btn_select_payer"/>
+                    android:id="@+id/btn_select_payer"
+                    android:drawableLeft="@drawable/stock_view_details"
+                    android:onClick="btn_select_payer_click"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"

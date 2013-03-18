@@ -14,15 +14,15 @@
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView"
+                android:text="@string/list"
+                android:id="@+id/tv_list"
                 android:layout_weight="1"
                 />
         <ListView
                 android:layout_width="fill_parent"
                 android:layout_weight="20"
                 android:layout_height="fill_parent"
-                android:id="@+id/listView"/>
+                android:id="@+id/lv_searching_result"/>
     </LinearLayout>
 
 </LinearLayout>

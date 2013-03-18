@@ -30,6 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="@string/btn_choose"
+                    android:onClick="btn_submit_click"
                     android:drawableLeft="@drawable/stock_view_details"
                     android:id="@+id/btn_submit"
                     android:layout_gravity="center"/>

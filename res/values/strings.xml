@@ -40,4 +40,5 @@
     <string name="visit">Visit:</string>
     <string name="appear">Appear</string>
     <string name="btn_medical_certificate">Add medical certificate</string>
+    <string name="list">Result list:</string>
 </resources>

@@ -19,6 +19,7 @@ public class MyActivity extends SherlockActivity {
         setContentView(R.layout.login);
     }
 
+
     public void btn_login_click(View v){
         EditText et_login = (EditText)findViewById(R.id.et_login);
         String temp_login = et_login.getText().toString();

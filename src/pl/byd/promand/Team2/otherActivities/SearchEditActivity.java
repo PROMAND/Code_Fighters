@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.promand.Team2.R;
 
 public class SearchEditActivity extends SherlockActivity {
@@ -69,7 +71,46 @@ public class SearchEditActivity extends SherlockActivity {
         }
 
     };
+    public void btn_search_click(View v){
+        intent = new Intent(SearchEditActivity.this, SearchingResultActivity.class);
+        this.startActivity(intent);
+    }
     public void btn_add_click(View v){
             SearchEditActivity.this.startActivity(intent);
+    }
+    //Selecting the menu iteam
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //Switch for do stuff
+        switch (item.getItemId()) {
+
+            //Case if user press back button
+            case R.id.btn_back:
+                //Goign back with onBackPressed class
+
+                this.onBackPressed();
+                return true;
+            case R.id.about:
+                //going to about actv
+                intent = new Intent(this, AboutActivity.class);
+                this.startActivity(intent);
+
+                return true;
+            case R.id.settings:
+                //going to setting actv
+                intent = new Intent(this,SettingsActivity.class);
+                this.startActivity(intent);
+
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 }
