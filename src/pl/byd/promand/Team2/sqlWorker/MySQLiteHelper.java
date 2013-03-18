@@ -10,7 +10,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     //main db definitions
     private static final String DATABASE_NAME = "physcomp.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     //table names definition
     public static final String TABLE_USERS = "user_doc";
@@ -139,6 +139,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(DRUGCODES_CREATE);
         db.execSQL(PAYERS_CREATE);
         db.execSQL(MEDICAL_CREATE);
+
     }
 
     @Override

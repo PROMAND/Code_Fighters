@@ -1,8 +1,10 @@
 package pl.byd.promand.Team2.otherActivities;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.promand.Team2.R;
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,5 +18,8 @@ public class SearchingResultActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
+        DbData db = new DbData(this);
+        db.getPatients();
+
     }
 }
