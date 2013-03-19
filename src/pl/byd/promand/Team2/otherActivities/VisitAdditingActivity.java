@@ -35,7 +35,16 @@ public class VisitAdditingActivity extends SherlockActivity {
        timePicker = new TimePickerDialog(this,mTimeSetListener,19,00,true);
        timePicker.show();
     }
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
+    @Override
+    public void onResume() {
+        if(SearchingResultActivity.takePatient!=null){
+            TextView tv = (TextView)findViewById(R.id.tv_yourResult);
+            tv.setText(String.valueOf(SearchingResultActivity.takePatient.get("name")) + " " + String.valueOf(SearchingResultActivity.takePatient.get("surname")));
+        }
+        super.onResume();
+    }
+
+        private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
 
                 public void onDateSet(DatePicker view, int year,
@@ -117,6 +126,7 @@ public class VisitAdditingActivity extends SherlockActivity {
     }
     public void btn_submit_click(View v){
         intent = new Intent(this,SearchingResultActivity.class);
+        intent.putExtra("result","Patient");
         this.startActivity(intent);
     }
 }
