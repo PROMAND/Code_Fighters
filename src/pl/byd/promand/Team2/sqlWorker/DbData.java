@@ -101,15 +101,15 @@ public class DbData {
                    date_of_birth = result.getString(4);
                    pesel = result.getInt(5);
                    additional_info = result.getString(6);
-                   country = result.getString(8);
-                   state = result.getString(9);
-                   town = result.getString(10);
-                   postal_code = result.getInt(11);
-                   street = result.getString(12);
-                   number_of_house = result.getString(13);
-                   number_of_flat = result.getString(14);
-                   phone = result.getString(15);
-                   email = result.getString(16);
+                   country = result.getString(9);
+                   state = result.getString(10);
+                   town = result.getString(11);
+                   postal_code = result.getInt(12);
+                   street = result.getString(13);
+                   number_of_house = result.getString(14);
+                   number_of_flat = result.getString(15);
+                   phone = result.getString(16);
+                   email = result.getString(17);
 
                    temp.put("id",id);
                    temp.put("name",name);
