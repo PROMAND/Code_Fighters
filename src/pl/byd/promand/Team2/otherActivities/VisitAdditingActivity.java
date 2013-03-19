@@ -3,16 +3,16 @@ package pl.byd.promand.Team2.otherActivities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.promand.Team2.R;
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 public class VisitAdditingActivity extends SherlockActivity {
    DatePickerDialog dataPicker;
@@ -22,6 +22,30 @@ public class VisitAdditingActivity extends SherlockActivity {
    TimePickerDialog timePicker;
     private String _Hour;
     private String _Min;
+    private ContentValues visitFields = new ContentValues();
+    private DbData db = new DbData(this);
+    private void SaveInformationToDict(){
+        db.open();
+
+        TextView tv_date = (TextView)findViewById(R.id.tv_yourDateResult);
+        TextView tv_time = (TextView)findViewById(R.id.tv_yourTimeResult);
+        Spinner sp_duration = (Spinner)findViewById(R.id.sp_chooseLength);
+        EditText et_additional_info_visit = (EditText)findViewById(R.id.et_information);
+
+        Integer patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
+        String time = String.valueOf(tv_date.getText());
+        String date = String.valueOf(tv_time.getText());
+        Integer duration = Integer.parseInt(String.valueOf(sp_duration.getSelectedItem()));
+        String additional_info_visit = String.valueOf(et_additional_info_visit.getText());
+
+        visitFields.put("patient_id",patient_id);
+        visitFields.put("date", date);
+        visitFields.put("time",time);
+        visitFields.put("duration",duration);
+        visitFields.put("additional_info",additional_info_visit);
+        db.insertVisit(visitFields);
+        db.close();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +152,10 @@ public class VisitAdditingActivity extends SherlockActivity {
         intent = new Intent(this,SearchingResultActivity.class);
         intent.putExtra("result","Patient");
         this.startActivity(intent);
+    }
+    public void btn_save_visit_info_click(View v){
+        SaveInformationToDict();
+        onBackPressed();
     }
 }
 
