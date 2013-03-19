@@ -15,7 +15,7 @@ public class DbData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private static final String myQPatientList = "select * from patients";
+    private static final String myQPatientList = "select * from patients as p LEFT JOIN contacts as c ON p._id = c.patient_id";
     private static final String myQPayerList = "select * from payers";
     private static final String myQVisitsList = "select * from visits";
 
@@ -81,7 +81,14 @@ public class DbData {
            int id;
            String name;
            String surname;
+           String sex;
+           String date_of_birth;
            Integer pesel;
+           String additional_info;
+           String country, state, town;
+           Integer postal_code;
+           String street, number_of_house, number_of_flat, phone, email;
+
            Log.v("tag","startLoop");
            if(result.moveToFirst() && result.getCount() >= 1){
                do{
@@ -89,11 +96,38 @@ public class DbData {
                    id = result.getInt(0);
                    name = result.getString(1);
                    surname = result.getString(2);
+                   sex = result.getString(3);
+                   date_of_birth = result.getString(4);
                    pesel = result.getInt(5);
+                   additional_info = result.getString(6);
+                   country = result.getString(8);
+                   state = result.getString(9);
+                   town = result.getString(10);
+                   postal_code = result.getInt(11);
+                   street = result.getString(12);
+                   number_of_house = result.getString(13);
+                   number_of_flat = result.getString(14);
+                   phone = result.getString(15);
+                   email = result.getString(16);
+
                    temp.put("id",id);
                    temp.put("name",name);
                    temp.put("surname",surname);
+                   temp.put("sex",sex);
+                   temp.put("date_of_birth",date_of_birth);
                    temp.put("pesel",String.valueOf(pesel));
+                   temp.put("additional_info",additional_info);
+                   temp.put("country",country);
+                   temp.put("state",state);
+                   temp.put("town",town);
+                   temp.put("town",town);
+                   temp.put("postal_code",String.valueOf(postal_code));
+                   temp.put("street",street);
+                   temp.put("number_of_house",number_of_house);
+                   temp.put("number_of_flat",number_of_flat);
+                   temp.put("phone",phone);
+                   temp.put("email",email);
+
                    listPatient.add(temp);
                }while(result.moveToNext());
            }
