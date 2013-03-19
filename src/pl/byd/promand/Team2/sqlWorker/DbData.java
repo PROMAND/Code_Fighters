@@ -155,6 +155,11 @@ public class DbData {
             result.moveToFirst();
             int id;
             String name;
+            String email;
+            String phone;
+            String address;
+            String additional_info;
+
 
             Log.v("tag","startLoop");
             if(result.moveToFirst() && result.getCount() >= 1){
@@ -162,9 +167,17 @@ public class DbData {
                     temp = new ContentValues();
                     id = result.getInt(0);
                     name = result.getString(1);
+                    email = result.getString(2);
+                    phone = result.getString(3);
+                    address = result.getString(4);
+                    additional_info = result.getString(5);
 
                     temp.put("id",id);
                     temp.put("name",name);
+                    temp.put("email",email);
+                    temp.put("phone",phone);
+                    temp.put("address",address);
+                    temp.put("additional_info",additional_info);
 
                     listPayers.add(temp);
                 }while(result.moveToNext());
@@ -194,6 +207,9 @@ public class DbData {
             int id;
             int patient_id;
             String date;
+            String time;
+            int duration;
+            String additional_info;
 
 
             Log.v("tag","startLoop");
@@ -203,10 +219,16 @@ public class DbData {
                     id = result.getInt(0);
                     patient_id = result.getInt(1);
                     date = result.getString(2);
+                    time = result.getString(3);
+                    duration = result.getInt(4);
+                    additional_info = result.getString(5);
 
                     temp.put("id",id);
                     temp.put("patient_id", patient_id);
                     temp.put("date", date);
+                    temp.put("time", time);
+                    temp.put("duration", duration);
+                    temp.put("additional_info", additional_info);
 
 
                     listVisit.add(temp);
