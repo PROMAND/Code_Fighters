@@ -54,6 +54,7 @@ public class PayerActivity extends SherlockActivity {
 
     public void btn_save_payer_click(View v){
        SaveInformationToDict();
+       onBackPressed();
     }
     public Intent intent;
     //Selecting the menu iteam
