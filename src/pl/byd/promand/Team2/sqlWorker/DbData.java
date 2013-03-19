@@ -294,7 +294,7 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM payer WHERE _id=" + id + " LIMIT 1",null);
+            Cursor result = database.rawQuery("SELECT * FROM payers WHERE _id=" + id + " LIMIT 1",null);
             result.moveToFirst();
 
             String name, email, phone, address, additional_info;
