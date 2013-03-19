@@ -18,6 +18,7 @@ public class DbData {
     private static final String myQPatientList = "select * from patients as p LEFT JOIN contacts as c ON p._id = c.patient_id";
     private static final String myQPayerList = "select * from payers";
     private static final String myQVisitsList = "select * from visits";
+    private static final String myQMCList = "select * from medical_certifcates";
 
     public DbData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -243,5 +244,45 @@ public class DbData {
 
     public long insertMedicalCertificate(ContentValues mc){
         return database.insert("medical_certifcates", null, mc);
+    }
+    public List<ContentValues> getMedicalCertificate()  {
+        List<ContentValues> listVisit = new ArrayList<ContentValues>();
+        if(database!=null && database.isOpen()){
+            close();
+            Log.e("blabla","ERROR");
+            return null;
+        } else {
+            open();
+            Cursor result = database.rawQuery(myQMCList, null);
+            ContentValues temp;
+            result.moveToFirst();
+            int id;
+            int patient_id;
+            int payer_id;
+            String arrived;
+
+            Log.v("tag","startLoop");
+            if(result.moveToFirst() && result.getCount() >= 1){
+                do{
+                    temp = new ContentValues();
+                    id = result.getInt(0);
+                    patient_id = result.getInt(1);
+                    payer_id = result.getInt(2);
+                    arrived = result.getString(3);
+
+
+                    temp.put("id",id);
+                    temp.put("patient_id", patient_id);
+                    temp.put("payer_id", payer_id);
+                    temp.put("arrived", arrived);
+
+                    listVisit.add(temp);
+                }while(result.moveToNext());
+            }
+
+            result.close();
+            close();
+        }
+        return listVisit;
     }
 }
