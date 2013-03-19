@@ -3,6 +3,7 @@ package pl.byd.promand.Team2.otherActivities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class SearchEditActivity extends SherlockActivity {
                 if(item.equals("Patient")){
                     btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PatientActivity.class);
+
                 }
                 else{
                     if(item.equals("Payer")){
@@ -73,6 +75,8 @@ public class SearchEditActivity extends SherlockActivity {
     };
     public void btn_search_click(View v){
         intent = new Intent(SearchEditActivity.this, SearchingResultActivity.class);
+        intent.putExtra("result", "Patient");
+        Log.e("ERROR","Start intent");
         this.startActivity(intent);
     }
     public void btn_add_click(View v){

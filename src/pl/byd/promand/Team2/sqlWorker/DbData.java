@@ -15,7 +15,7 @@ public class DbData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private static final String myQPatientList = "select _id, name, surname from patients";
+    private static final String myQPatientList = "select * from patients";
 
     public DbData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -44,27 +44,31 @@ public class DbData {
         List<ContentValues> listPatient = new ArrayList<ContentValues>();
        if(database!=null && database.isOpen()){
            close();
+           Log.e("blabla","ERROR");
            return null;
        } else {
            open();
            Cursor result = database.rawQuery(myQPatientList, null);
-           ContentValues temp = new ContentValues();
+           ContentValues temp;
            result.moveToFirst();
            int id;
            String name;
            String surname;
-           String pesel;
+           Integer pesel;
            Log.v("tag","startLoop");
-           while(result.moveToNext()){
-               id = result.getInt(0);
-               name = result.getString(1);
-               surname = result.getString(2);
-               pesel = result.getString(5);
-               temp.put("id",id);
-               temp.put("name",name);
-               temp.put("surname",surname);
-               temp.put("pesel",pesel);
-               listPatient.add(temp);
+           if(result.moveToFirst() && result.getCount() >= 1){
+               do{
+                   temp = new ContentValues();
+                   id = result.getInt(0);
+                   name = result.getString(1);
+                   surname = result.getString(2);
+                   pesel = result.getInt(5);
+                   temp.put("id",id);
+                   temp.put("name",name);
+                   temp.put("surname",surname);
+                   temp.put("pesel",String.valueOf(pesel));
+                   listPatient.add(temp);
+               }while(result.moveToNext());
            }
 
            result.close();
