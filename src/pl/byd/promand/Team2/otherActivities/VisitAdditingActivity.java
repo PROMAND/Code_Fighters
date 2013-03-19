@@ -33,8 +33,8 @@ public class VisitAdditingActivity extends SherlockActivity {
         EditText et_additional_info_visit = (EditText)findViewById(R.id.et_information);
 
         Integer patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
-        String time = String.valueOf(tv_date.getText());
-        String date = String.valueOf(tv_time.getText());
+        String time = String.valueOf(tv_time.getText());
+        String date = String.valueOf(tv_date.getText());
         Integer duration = Integer.parseInt(String.valueOf(sp_duration.getSelectedItem()));
         String additional_info_visit = String.valueOf(et_additional_info_visit.getText());
 
