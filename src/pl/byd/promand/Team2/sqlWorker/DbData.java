@@ -285,4 +285,67 @@ public class DbData {
         }
         return listVisit;
     }
+    public ContentValues getPayerById(int id){
+        ContentValues temp = new ContentValues();
+
+        if(database!=null && database.isOpen()){
+            close();
+            Log.e("blabla", "ERROR");
+            return null;
+        } else {
+            open();
+            Cursor result = database.rawQuery("SELECT * FROM payer WHERE _id=" + id + " LIMIT 1",null);
+            result.moveToFirst();
+
+            String name, email, phone, address, additional_info;
+
+            name = result.getString(1);
+            email = result.getString(2);
+            phone = result.getString(3);
+            address = result.getString(4);
+            additional_info = result.getString(5);
+
+            temp.put("name",name);
+            temp.put("email",email);
+            temp.put("phone",phone);
+            temp.put("address",address);
+            temp.put("additional_info",additional_info);
+            result.close();
+        }
+
+        close();
+        return temp;
+    }
+    public ContentValues getVisitById(int id){
+        ContentValues temp = new ContentValues();
+
+        if(database!=null && database.isOpen()){
+            close();
+            Log.e("blabla", "ERROR");
+            return null;
+        } else {
+            open();
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE _id=" + id + " LIMIT 1",null);
+            result.moveToFirst();
+
+            String  date, time, additional_info;
+            int patient_id, duration;
+
+            patient_id = result.getInt(1);
+            date = result.getString(2);
+            time = result.getString(3);
+            duration = result.getInt(4);
+            additional_info = result.getString(5);
+
+            temp.put("patient_id",patient_id);
+            temp.put("date",date);
+            temp.put("time",time);
+            temp.put("duration",duration);
+            temp.put("additional_info",additional_info);
+            result.close();
+        }
+
+        close();
+        return temp;
+    }
 }
