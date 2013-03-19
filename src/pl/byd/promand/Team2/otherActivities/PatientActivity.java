@@ -23,7 +23,6 @@ public class PatientActivity extends SherlockActivity {
     private ContentValues patientFields = new ContentValues();
     private ContentValues patientAddressFields = new ContentValues();
     private DbData db = new DbData(this);
-    private static final String TABLE_PATIENTS = "patients";
 
     private void SaveInformationToDict(){
         db.open();
@@ -92,6 +91,7 @@ public class PatientActivity extends SherlockActivity {
     public void btn_save_patient_click(View v){
         DbData db = null;
         SaveInformationToDict();
+        onBackPressed();
     }
     public Intent intent;
     //Selecting the menu iteam

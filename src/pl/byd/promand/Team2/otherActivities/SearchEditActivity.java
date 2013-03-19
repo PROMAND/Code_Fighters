@@ -75,7 +75,9 @@ public class SearchEditActivity extends SherlockActivity {
     };
     public void btn_search_click(View v){
         intent = new Intent(SearchEditActivity.this, SearchingResultActivity.class);
-        intent.putExtra("result", "Patient");
+        Spinner sp = (Spinner)findViewById(R.id.sp_type);
+
+        intent.putExtra("result", String.valueOf(sp.getSelectedItem()));
         Log.e("ERROR","Start intent");
         this.startActivity(intent);
     }
