@@ -184,7 +184,7 @@ public class SearchEditActivity extends SherlockActivity {
             lv_result.setAdapter(adapter);
 
         }
-        if(String.valueOf(spinner.getSelectedItem()).equals("Visit") && SearchingResultActivity.takeVisit!=null){
+        /*if(String.valueOf(spinner.getSelectedItem()).equals("Visit") && SearchingResultActivity.takeVisit!=null){
             ArrayList<String> generalList = new ArrayList<String>();
             DbData temp = new DbData(this);
             ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id"))));
@@ -201,6 +201,23 @@ public class SearchEditActivity extends SherlockActivity {
             lv_result.setAdapter(adapter);
 
         }
+        if(String.valueOf(spinner.getSelectedItem()).equals("Medical certificate") && SearchingResultActivity.takeVisit!=null){
+            ArrayList<String> generalList = new ArrayList<String>();
+            DbData temp = new DbData(this);
+            ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id"))));
+            generalList.add("Name / Surname: " + String.valueOf(patient.get("name")) + " / " + String.valueOf(patient.get("surname")));
+            generalList.add("Date: " + String.valueOf(SearchingResultActivity.takeVisit.get("date")));
+            generalList.add("Time: " + String.valueOf(SearchingResultActivity.takeVisit.get("time")));
+            generalList.add("Duration: " + String.valueOf(SearchingResultActivity.takeVisit.get("duration")));
+            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takeVisit.get("additional_info")));
+
+            ArrayAdapter adapter=new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1,
+                    generalList);
+
+            lv_result.setAdapter(adapter);
+
+        } */
         super.onResume();
    }
 }
