@@ -61,7 +61,10 @@ public class DbData {
 
             temp.put("name",name);
             temp.put("surname",surname);
+            result.close();
         }
+
+        close();
         return temp;
     }
     public List<ContentValues> getPatients()  {
