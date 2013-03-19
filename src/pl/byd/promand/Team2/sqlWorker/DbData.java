@@ -37,6 +37,7 @@ public class DbData {
         String selectQuery = "SELECT  * FROM  patients";
         Cursor cursor = database.rawQuery(selectQuery, null);
         cursor.moveToLast();
+
         return cursor.getInt(0);
     }
     public long insertPatientAddress(ContentValues patientAddress) {

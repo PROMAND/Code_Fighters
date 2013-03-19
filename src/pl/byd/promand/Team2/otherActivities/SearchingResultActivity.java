@@ -26,6 +26,7 @@ public class SearchingResultActivity extends SherlockActivity {
     List<ContentValues> listResult;
     public static ContentValues takePatient;
     public static ContentValues takeVisit;
+    public static ContentValues takePayer;
     DbData db;
     ArrayAdapter<String> adapter;
     @Override
@@ -62,6 +63,9 @@ public class SearchingResultActivity extends SherlockActivity {
                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                       //String name= generalList.get(position);
                       takePatient = listResult.get(position);
+                      takeVisit = null;
+                      takePayer = null;
+
                       //String pesel = String.valueOf(temp.get("pesel"));
                       onBackPressed();
                      // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
@@ -98,14 +102,48 @@ public class SearchingResultActivity extends SherlockActivity {
                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                        //String name= generalList.get(position);
                        takeVisit = listResult.get(position);
+                       takePatient = null;
+                       takePayer = null;
                        //String pesel = String.valueOf(temp.get("pesel"));
-                       onBackPressed();
+                       SearchingResultActivity.this.onDestroy();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
                    }
                });
                lv.setAdapter(adapter);
            }
-
+           if(result.equals("Payer")){
+               String date;
+               String name;
+               Integer patient_id;
+               String surname;
+               db = new DbData(this);
+               Log.e("ERROR", "NULL");
+               listResult = new ArrayList<ContentValues>();
+               listResult = db.getPayers();
+               Log.e("ERROR",String.valueOf(listResult.size()));
+               for(ContentValues payer : listResult){
+                   name = String.valueOf(payer.get("name"));
+                   generalList.add(name);
+               }
+               if(generalList == null){
+                   Log.e("blala","ERRROOROR"); }
+               adapter=new ArrayAdapter<String>(this,
+                       android.R.layout.simple_list_item_1,
+                       generalList);
+               ListView lv = (ListView)findViewById(R.id.lv_searching_result);
+               lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                       //String name= generalList.get(position);
+                       takeVisit = null;
+                       takePatient = null;
+                       takePayer = listResult.get(position);
+                       //String pesel = String.valueOf(temp.get("pesel"));
+                       SearchingResultActivity.this.onDestroy();
+                       // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
+                   }
+               });
+               lv.setAdapter(adapter);
+           }
         }
 
     }
