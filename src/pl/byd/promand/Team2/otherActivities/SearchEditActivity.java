@@ -31,27 +31,6 @@ public class SearchEditActivity extends SherlockActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             Object item = parent.getItemAtPosition(pos);
             Button btn = (Button)findViewById(R.id.btn_add);
-            /*switch (String.valueOf(item)){
-                case "Visit": {
-                    btn.setEnabled(false);
-                    break;
-                }
-                case "Patient":{
-                    btn.setEnabled(true);
-                    intent = new Intent(SearchEditActivity.this, PatientActivity.class);
-                    break;
-                }
-                case "Payer":{
-                    btn.setEnabled(true);
-                    intent = new Intent(SearchEditActivity.this, PayerActivity.class);
-                    break;
-                }
-                case "Medical certificate":{
-                    btn.setEnabled(true);
-                    intent = new Intent(SearchEditActivity.this, AddMedicalCertificate.class);
-                    break;
-                }
-            }  */
             if(item.equals("Visit")){
                 btn.setEnabled(false);
                lv_result.setAdapter(null);
@@ -184,7 +163,7 @@ public class SearchEditActivity extends SherlockActivity {
             lv_result.setAdapter(adapter);
 
         }
-        /*if(String.valueOf(spinner.getSelectedItem()).equals("Visit") && SearchingResultActivity.takeVisit!=null){
+        if(String.valueOf(spinner.getSelectedItem()).equals("Visit") && SearchingResultActivity.takeVisit!=null){
             ArrayList<String> generalList = new ArrayList<String>();
             DbData temp = new DbData(this);
             ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id"))));
@@ -201,15 +180,17 @@ public class SearchEditActivity extends SherlockActivity {
             lv_result.setAdapter(adapter);
 
         }
-        if(String.valueOf(spinner.getSelectedItem()).equals("Medical certificate") && SearchingResultActivity.takeVisit!=null){
+        if(String.valueOf(spinner.getSelectedItem()).equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null){
             ArrayList<String> generalList = new ArrayList<String>();
             DbData temp = new DbData(this);
-            ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id"))));
+            ContentValues visit = temp.getVisitById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("patient_id"))));
+            ContentValues payer = temp.getPayerById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("payer_id"))));
+            ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(visit.get("patient_id"))));
             generalList.add("Name / Surname: " + String.valueOf(patient.get("name")) + " / " + String.valueOf(patient.get("surname")));
-            generalList.add("Date: " + String.valueOf(SearchingResultActivity.takeVisit.get("date")));
-            generalList.add("Time: " + String.valueOf(SearchingResultActivity.takeVisit.get("time")));
-            generalList.add("Duration: " + String.valueOf(SearchingResultActivity.takeVisit.get("duration")));
-            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takeVisit.get("additional_info")));
+            generalList.add("Date: " + visit.get("date"));
+            generalList.add("Time: " + visit.get("time"));
+            generalList.add("Duration: " + visit.get("duration"));
+            generalList.add("Name of company: " + payer.get("name"));
 
             ArrayAdapter adapter=new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1,
@@ -217,7 +198,7 @@ public class SearchEditActivity extends SherlockActivity {
 
             lv_result.setAdapter(adapter);
 
-        } */
+        }
         super.onResume();
    }
 }
