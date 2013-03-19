@@ -105,7 +105,7 @@ public class SearchingResultActivity extends SherlockActivity {
                        takePatient = null;
                        takePayer = null;
                        //String pesel = String.valueOf(temp.get("pesel"));
-                       SearchingResultActivity.this.onDestroy();
+                       onBackPressed();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
                    }
                });
@@ -138,7 +138,7 @@ public class SearchingResultActivity extends SherlockActivity {
                        takePatient = null;
                        takePayer = listResult.get(position);
                        //String pesel = String.valueOf(temp.get("pesel"));
-                       SearchingResultActivity.this.onDestroy();
+                      onBackPressed();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
                    }
                });

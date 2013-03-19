@@ -1,6 +1,7 @@
 package pl.byd.promand.Team2.otherActivities;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,18 +11,21 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.promand.Team2.R;
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 import java.util.ArrayList;
 
 public class SearchEditActivity extends SherlockActivity {
     Spinner spinner;
     Intent intent;
+    ListView lv_result;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
         spinner = (Spinner)findViewById(R.id.sp_type);
         spinner.setOnItemSelectedListener(spinnerListener);
+        lv_result = (ListView)findViewById(R.id.lv_result);
     }
     private  AdapterView.OnItemSelectedListener spinnerListener = new AdapterView.OnItemSelectedListener(){
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -50,21 +54,26 @@ public class SearchEditActivity extends SherlockActivity {
             }  */
             if(item.equals("Visit")){
                 btn.setEnabled(false);
+               lv_result.setAdapter(null);
+
             }
             else {
                 if(item.equals("Patient")){
                     btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PatientActivity.class);
+                    lv_result.setAdapter(null);
 
                 }
                 else{
                     if(item.equals("Payer")){
                      btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PayerActivity.class);
+                        lv_result.setAdapter(null);
                     }
                     else{
                         btn.setEnabled(true);
                         intent = new Intent(SearchEditActivity.this, AddMedicalCertificate.class);
+                        lv_result.setAdapter(null);
                     }
                 }
             }
@@ -127,6 +136,7 @@ public class SearchEditActivity extends SherlockActivity {
         generalList.add("Surname: " + String.valueOf(SearchingResultActivity.takePatient.get("surname")));
         generalList.add("Sex: " + String.valueOf(SearchingResultActivity.takePatient.get("sex")));
         generalList.add("Date of birth: " + String.valueOf(SearchingResultActivity.takePatient.get("date_of_birth")));
+        generalList.add("Additional info:" + String.valueOf(SearchingResultActivity.takePatient.get("additional_info")));
         generalList.add("Pesel: " + String.valueOf(SearchingResultActivity.takePatient.get("pesel")));
         generalList.add("Country: " + String.valueOf(SearchingResultActivity.takePatient.get("country")));
         generalList.add("State: " + String.valueOf(SearchingResultActivity.takePatient.get("state")));
@@ -140,21 +150,57 @@ public class SearchEditActivity extends SherlockActivity {
         ArrayAdapter adapter=new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 generalList);
-        ListView lv = (ListView)findViewById(R.id.lv_result);
-       /* lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String name= generalList.get(position);
-              ////  takeVisit = null;
-              //  takePatient = null;
-              //  takePayer = listResult.get(position);
-                //String pesel = String.valueOf(temp.get("pesel"));
-              //  SearchingResultActivity.this.onDestroy();
-                // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
-            }
-        }); */
-        lv.setAdapter(adapter);
+
+        lv_result.setAdapter(adapter);
 
     }
+        if(String.valueOf(spinner.getSelectedItem()).equals("Payer") && SearchingResultActivity.takePayer!=null){
+            ArrayList<String> generalList = new ArrayList<String>();
+            generalList.add("Name of company: " + String.valueOf(SearchingResultActivity.takePayer.get("name")));
+            generalList.add("E-mail: " + String.valueOf(SearchingResultActivity.takePayer.get("email")));
+            generalList.add("Phone: " + String.valueOf(SearchingResultActivity.takePayer.get("phone")));
+            generalList.add("Address: " + String.valueOf(SearchingResultActivity.takePayer.get("address")));
+            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takePayer.get("additional_info")));
+
+            ArrayAdapter adapter=new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1,
+                    generalList);
+
+            lv_result.setAdapter(adapter);
+
+        }
+        if(String.valueOf(spinner.getSelectedItem()).equals("Payer") && SearchingResultActivity.takePayer!=null){
+            ArrayList<String> generalList = new ArrayList<String>();
+            generalList.add("Name of company: " + String.valueOf(SearchingResultActivity.takePayer.get("name")));
+            generalList.add("E-mail: " + String.valueOf(SearchingResultActivity.takePayer.get("email")));
+            generalList.add("Phone: " + String.valueOf(SearchingResultActivity.takePayer.get("phone")));
+            generalList.add("Address: " + String.valueOf(SearchingResultActivity.takePayer.get("address")));
+            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takePayer.get("additional_info")));
+
+            ArrayAdapter adapter=new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1,
+                    generalList);
+
+            lv_result.setAdapter(adapter);
+
+        }
+        if(String.valueOf(spinner.getSelectedItem()).equals("Visit") && SearchingResultActivity.takeVisit!=null){
+            ArrayList<String> generalList = new ArrayList<String>();
+            DbData temp = new DbData(this);
+            ContentValues patient = temp.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id"))));
+            generalList.add("Name / Surname: " + String.valueOf(patient.get("name")) + " / " + String.valueOf(patient.get("surname")));
+            generalList.add("Date: " + String.valueOf(SearchingResultActivity.takeVisit.get("date")));
+            generalList.add("Time: " + String.valueOf(SearchingResultActivity.takeVisit.get("time")));
+            generalList.add("Duration: " + String.valueOf(SearchingResultActivity.takeVisit.get("duration")));
+            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takeVisit.get("additional_info")));
+
+            ArrayAdapter adapter=new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1,
+                    generalList);
+
+            lv_result.setAdapter(adapter);
+
+        }
         super.onResume();
    }
 }

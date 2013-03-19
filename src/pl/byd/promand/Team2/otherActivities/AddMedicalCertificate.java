@@ -1,8 +1,10 @@
 package pl.byd.promand.Team2.otherActivities;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -17,6 +19,16 @@ import pl.byd.promand.Team2.sqlWorker.DbData;
  * To change this template use File | Settings | File Templates.
  */
 public class AddMedicalCertificate extends SherlockActivity {
+    ContentValues medical_certificate = new ContentValues();
+    Integer patient_id;
+    Integer payer_id;
+
+    private void SaveInformationToDict(){
+        medical_certificate.put("patient_id",patient_id);
+        medical_certificate.put("payer_id",payer_id);
+        CheckBox cb = (CheckBox)findViewById(R.id.cb_appear);
+        medical_certificate.put("arrived",String.valueOf(cb.isChecked()));
+    }
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -59,11 +71,24 @@ public class AddMedicalCertificate extends SherlockActivity {
         return true;
     }
     public void btn_select_payer_click(View v){
+        payer_id = null;
         intent = new Intent(this,SearchingResultActivity.class);
+        intent.putExtra("result", "Payer");
         this.startActivity(intent);
+        payer_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id")));
     }
     public void btn_select_visit_click(View v){
+        patient_id = null;
         intent = new Intent(this,SearchingResultActivity.class);
+        intent.putExtra("result","Patient");
         this.startActivity(intent);
+        patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
+    }
+    public void btn_save_medical_certificate_click(View v){
+      DbData db = new DbData(this);
+      db.open();
+      SaveInformationToDict();
+      db.insertMedicalCertificate(medical_certificate);
+      db.close();
     }
 }
