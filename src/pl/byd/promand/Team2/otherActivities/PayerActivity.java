@@ -9,6 +9,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.promand.Team2.R;
+import pl.byd.promand.Team2.sqlWorker.DbData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,9 @@ import java.util.Map;
  */
 public class PayerActivity extends SherlockActivity {
     ContentValues payerFields = new ContentValues();
+    private DbData db = new DbData(this);
     private void SaveInformationToDict(){
+        db.open();
         EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
         EditText et_email_payer = (EditText)findViewById(R.id.et_email_payer);
         EditText et_phone_payer = (EditText)findViewById(R.id.et_phone_payer);
@@ -35,11 +38,13 @@ public class PayerActivity extends SherlockActivity {
         String address = String.valueOf(et_address.getText());
         String additional_info_payer = String.valueOf(et_additional_info_payer.getText());
 
-        payerFields.put("name_of_company",name_of_company);
+        payerFields.put("name",name_of_company);
         payerFields.put("email", email_payer);
         payerFields.put("phone",phone_payer);
         payerFields.put("address",address);
         payerFields.put("additional_info",additional_info_payer);
+        db.insertPayer(payerFields);
+        db.close();
     }
     @Override
     public void onCreate(Bundle bundle){

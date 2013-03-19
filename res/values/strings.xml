@@ -28,7 +28,7 @@
     <string name="surname">Surname:</string>
     <string name="sex">Sex:</string>
     <string name="date_of_birth">Date of birth:</string>
-    <string name="id">ID:</string>
+    <string name="id">Unique ID (PESEL):</string>
     <string name="country">Country:</string>
     <string name="postal_code">Postal code:</string>
     <string name="email">E-mail:</string>

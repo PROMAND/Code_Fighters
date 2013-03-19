@@ -37,11 +37,11 @@ public class DbData {
         cursor.moveToLast();
         return cursor.getInt(0);
     }
-    public long insertPatientAddress(ContentValues patient) {
-       return database.insert( "contacts", null, patient);
+    public long insertPatientAddress(ContentValues patientAddress) {
+       return database.insert( "contacts", null, patientAddress);
     }
     public List<ContentValues> getPatients()  {
-        List<ContentValues> listPatient = new ArrayList<ContentValues>();
+       List<ContentValues> listPatient = new ArrayList<ContentValues>();
        if(database!=null && database.isOpen()){
            close();
            Log.e("blabla","ERROR");
@@ -76,6 +76,8 @@ public class DbData {
        }
         return listPatient;
     }
-
+    public long insertPayer(ContentValues payer) {
+        return database.insert( "payers", null, payer);
+    }
 
 }
