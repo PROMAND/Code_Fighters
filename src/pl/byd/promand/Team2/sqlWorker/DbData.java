@@ -80,4 +80,8 @@ public class DbData {
         return database.insert( "payers", null, payer);
     }
 
+    public long insertVisit(ContentValues visit){
+        return database.insert("visits",null,visit);
+    }
+
 }
