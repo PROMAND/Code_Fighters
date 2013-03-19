@@ -25,6 +25,7 @@ public class SearchingResultActivity extends SherlockActivity {
     ArrayList<String> generalList = new ArrayList<String>();
     List<ContentValues> listResult;
     public static ContentValues takePatient;
+    public static ContentValues takeVisit;
     DbData db;
     ArrayAdapter<String> adapter;
     @Override
@@ -68,6 +69,42 @@ public class SearchingResultActivity extends SherlockActivity {
               });
               lv.setAdapter(adapter);
           }
+           if(result.equals("Visit")){
+               String date;
+               String name;
+               Integer patient_id;
+               String surname;
+               db = new DbData(this);
+               Log.e("ERROR", "NULL");
+               listResult = new ArrayList<ContentValues>();
+              listResult = db.getVisits();
+               Log.e("ERROR",String.valueOf(listResult.size()));
+               for(ContentValues visit : listResult){
+                   ContentValues patient = new ContentValues();
+                   date = String.valueOf(visit.get("date"));
+                   patient_id = Integer.parseInt(String.valueOf(visit.get("patient_id")));
+                   patient = db.getPatientById(patient_id);
+                   name = String.valueOf(patient.get("name"));
+                   surname = String.valueOf(patient.get("surname"));
+                   generalList.add(date + " | " + name + " " + surname);
+               }
+               if(generalList == null){
+                   Log.e("blala","ERRROOROR"); }
+               adapter=new ArrayAdapter<String>(this,
+                       android.R.layout.simple_list_item_1,
+                       generalList);
+               ListView lv = (ListView)findViewById(R.id.lv_searching_result);
+               lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                       //String name= generalList.get(position);
+                       takeVisit = listResult.get(position);
+                       //String pesel = String.valueOf(temp.get("pesel"));
+                       onBackPressed();
+                       // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
+                   }
+               });
+               lv.setAdapter(adapter);
+           }
 
         }
 
