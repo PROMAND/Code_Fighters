@@ -1,5 +1,6 @@
 package pl.byd.promand.Team2.otherActivities;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class PayerActivity extends SherlockActivity {
-    Map<String, String> payerFields = new HashMap<String, String>();
+    ContentValues payerFields = new ContentValues();
     private void SaveInformationToDict(){
         EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
         EditText et_email_payer = (EditText)findViewById(R.id.et_email_payer);
