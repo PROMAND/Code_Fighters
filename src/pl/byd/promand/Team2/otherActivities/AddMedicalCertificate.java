@@ -20,11 +20,14 @@ import pl.byd.promand.Team2.sqlWorker.DbData;
  */
 public class AddMedicalCertificate extends SherlockActivity {
     ContentValues medical_certificate = new ContentValues();
-    Integer patient_id;
+    Integer visit_id;
     Integer payer_id;
 
     private void SaveInformationToDict(){
-        medical_certificate.put("patient_id",patient_id);
+
+        payer_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id")));
+        visit_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id")));
+        medical_certificate.put("patient_id",visit_id);
         medical_certificate.put("payer_id",payer_id);
         CheckBox cb = (CheckBox)findViewById(R.id.cb_appear);
         medical_certificate.put("arrived",String.valueOf(cb.isChecked()));
@@ -71,18 +74,18 @@ public class AddMedicalCertificate extends SherlockActivity {
         return true;
     }
     public void btn_select_payer_click(View v){
-        payer_id = null;
+
         intent = new Intent(this,SearchingResultActivity.class);
         intent.putExtra("result", "Payer");
         this.startActivity(intent);
-        payer_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id")));
+
     }
     public void btn_select_visit_click(View v){
-        patient_id = null;
+
         intent = new Intent(this,SearchingResultActivity.class);
-        intent.putExtra("result","Patient");
+        intent.putExtra("result","Visit");
         this.startActivity(intent);
-        patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
+
     }
     public void btn_save_medical_certificate_click(View v){
       DbData db = new DbData(this);

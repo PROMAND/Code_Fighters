@@ -27,6 +27,7 @@ public class SearchingResultActivity extends SherlockActivity {
     public static ContentValues takePatient;
     public static ContentValues takeVisit;
     public static ContentValues takePayer;
+    public static ContentValues takeMedicalCertificate;
     DbData db;
     ArrayAdapter<String> adapter;
     @Override
@@ -103,7 +104,7 @@ public class SearchingResultActivity extends SherlockActivity {
                        //String name= generalList.get(position);
                        takeVisit = listResult.get(position);
                        takePatient = null;
-                       takePayer = null;
+
                        //String pesel = String.valueOf(temp.get("pesel"));
                        onBackPressed();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
@@ -134,11 +135,50 @@ public class SearchingResultActivity extends SherlockActivity {
                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                        //String name= generalList.get(position);
-                       takeVisit = null;
+
                        takePatient = null;
                        takePayer = listResult.get(position);
                        //String pesel = String.valueOf(temp.get("pesel"));
                       onBackPressed();
+                       // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
+                   }
+               });
+               lv.setAdapter(adapter);
+           }
+           if(result.equals("Medical certificate")){
+               String date;
+               String name;
+               Integer payer_id,visit_id;
+               String appeared;
+               db = new DbData(this);
+               Log.e("ERROR", "NULL");
+               listResult = new ArrayList<ContentValues>();
+               listResult = db.getMedicalCertificate();
+               Log.e("ERROR",String.valueOf(listResult.size()));
+               for(ContentValues certificate : listResult){
+                   ContentValues patient = new ContentValues();
+                   date = String.valueOf(certificate.get("date"));
+                  //TO DO GET VISIT GET PAYER
+                   payer_id = Integer.parseInt(String.valueOf(certificate.get("patient_id")));
+                  // patient = db.getPatientById(patient_id);
+                   visit_id = Integer.parseInt(String.valueOf(patient.get("visit_id")));
+                   appeared = String.valueOf(patient.get("arrived"));
+                   //generalList.add(date + " | " + name + " " + surname);
+               }
+               if(generalList == null){
+                   Log.e("blala","ERRROOROR"); }
+               adapter=new ArrayAdapter<String>(this,
+                       android.R.layout.simple_list_item_1,
+                       generalList);
+               ListView lv = (ListView)findViewById(R.id.lv_searching_result);
+               lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                       //String name= generalList.get(position);
+                       takeVisit = listResult.get(position);
+                       takePatient = null;
+
+                       //String pesel = String.valueOf(temp.get("pesel"));
+                       onBackPressed();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
                    }
                });
