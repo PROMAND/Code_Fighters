@@ -387,7 +387,7 @@ public class DbData {
         return database.update("payers", payer, "_id="+payer.get("id"), null);
     }
     public long updateVisit(ContentValues visit){
-        return database.update("visits", visit, "_id="+visit.get("id"), null);
+        return database.update("visits", visit, "_id="+visit.get("_id"), null);
     }
     public long updateMedicalCertifcates (ContentValues mc){
         return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
