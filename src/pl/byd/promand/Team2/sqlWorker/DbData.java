@@ -378,4 +378,17 @@ public class DbData {
 
         return database.delete("patients", "_id="+ id, null);
     }
+    public long updatePatient(ContentValues patient, ContentValues address){
+       database.update("contacts",address , "patient_id="+patient.get("id"), null);
+       return database.update("patients", patient, "_id="+patient.get("id"), null);
+    }
+    public long updatePayer(ContentValues payer){
+        return database.update("payers", payer, "_id="+payer.get("id"), null);
+    }
+    public long updateVisit(ContentValues visit){
+        return database.update("visits", visit, "_id="+visit.get("id"), null);
+    }
+    public long updateMedicalCertifcates (ContentValues mc){
+        return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
+    }
 }
