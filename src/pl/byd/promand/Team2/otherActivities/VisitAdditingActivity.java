@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -16,6 +17,7 @@ import pl.byd.promand.Team2.sqlWorker.DbData;
 
 public class VisitAdditingActivity extends SherlockActivity {
    DatePickerDialog dataPicker;
+    ContentValues patient;
     private String _Year;
     private String _Month;
     private String _Day;
@@ -31,8 +33,13 @@ public class VisitAdditingActivity extends SherlockActivity {
         TextView tv_time = (TextView)findViewById(R.id.tv_yourTimeResult);
         Spinner sp_duration = (Spinner)findViewById(R.id.sp_chooseLength);
         EditText et_additional_info_visit = (EditText)findViewById(R.id.et_information);
-
-        Integer patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
+        Integer patient_id;
+        if(SearchingResultActivity.takePatient == null){
+            patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id")));
+        }
+        else {
+            patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
+        }
         String time = String.valueOf(tv_time.getText());
         String date = String.valueOf(tv_date.getText());
         Integer duration = Integer.parseInt(String.valueOf(sp_duration.getSelectedItem()));
@@ -43,26 +50,77 @@ public class VisitAdditingActivity extends SherlockActivity {
         visitFields.put("time",time);
         visitFields.put("duration",duration);
         visitFields.put("additional_info",additional_info_visit);
+
+        Intent temp = this.getIntent();
+        String extra = temp.getStringExtra("result");
+        if(extra!=null && extra.equals("edVisit")){
+         visitFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
+         db.updateVisit(visitFields);
+        }
+        else{
         db.insertVisit(visitFields);
+        }
         db.close();
+        if(visitFields.get("_id")!=null) {
+        SearchingResultActivity.takeVisit = db.getVisitById(Integer.parseInt(String.valueOf(visitFields.get("_id"))));
+        }
+    }
+    private void LoadFields(){
+        ContentValues tempVisit = SearchingResultActivity.takeVisit;
+        TextView tv_date = (TextView)findViewById(R.id.tv_yourDateResult);
+        TextView tv_time = (TextView)findViewById(R.id.tv_yourTimeResult);
+        TextView tv_patient = (TextView)findViewById(R.id.tv_yourPatientResult);
+        EditText et_info = (EditText)findViewById(R.id.et_information);
+        tv_date.setText(String.valueOf(tempVisit.get("date")));
+        tv_time.setText(String.valueOf(tempVisit.get("time")));
+
+        patient = db.getPatientById(Integer.parseInt(String.valueOf(tempVisit.get("patient_id"))));
+        tv_patient.setText(String.valueOf(patient.get("name"))+ " " + String.valueOf(patient.get("surname")));
+        et_info.setText(String.valueOf(tempVisit.get("additional_info")));
+        //TO DO
+        Spinner sp = (Spinner)findViewById(R.id.sp_chooseLength);
+        if(Integer.parseInt(String.valueOf(tempVisit.get("duration"))) == 30){
+            sp.setSelection(1);
+        }
+        if(Integer.parseInt(String.valueOf(tempVisit.get("duration"))) == 45){
+            sp.setSelection(2);
+        }
+        if(Integer.parseInt(String.valueOf(tempVisit.get("duration"))) == 60) {
+            sp.setSelection(3);
+
+        }
+        dataPicker = new DatePickerDialog(this,mDateSetListener,2013,2,10);//new DatePickerDialog(this,mDateSetListener,Integer.parseInt(String.valueOf(tempVisit.get("date")).substring(String.valueOf(tempVisit.get("date")).lastIndexOf('/')),4)
+                //,Integer.parseInt(String.valueOf(tempVisit.get("date")).substring(String.valueOf(tempVisit.get("date")).indexOf('/')),2),Integer.parseInt(String.valueOf(tempVisit.get("date")).substring(0,2)));
+        timePicker = new TimePickerDialog(this,mTimeSetListener,19,00,true);
+
+
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visit);
+        Intent temp = this.getIntent();
+        String result = temp.getStringExtra("result");
+        dataPicker = new DatePickerDialog(this,mDateSetListener,2013,2,10);
+        timePicker = new TimePickerDialog(this,mTimeSetListener,19,00,true);
+        if(result!=null && result.equals("edVisit")){
+
+            LoadFields();
+        }
     }
     public void btn_chooseDate_click(View v){
-        dataPicker = new DatePickerDialog(this,mDateSetListener,2013,2,10);
+
         dataPicker.show();
     }
     public void btn_chooseTime_click(View v){
-       timePicker = new TimePickerDialog(this,mTimeSetListener,19,00,true);
+
        timePicker.show();
     }
     @Override
     public void onResume() {
         if(SearchingResultActivity.takePatient!=null){
-            TextView tv = (TextView)findViewById(R.id.tv_yourResult);
+            TextView tv = (TextView)findViewById(R.id.tv_yourPatientResult);
             tv.setText(String.valueOf(SearchingResultActivity.takePatient.get("name")) + " " + String.valueOf(SearchingResultActivity.takePatient.get("surname")));
         }
         super.onResume();
@@ -154,8 +212,18 @@ public class VisitAdditingActivity extends SherlockActivity {
         this.startActivity(intent);
     }
     public void btn_save_visit_info_click(View v){
-        SaveInformationToDict();
+        Intent temp = VisitAdditingActivity.this.getIntent();
+        String extra = temp.getStringExtra("result");
+
+            SaveInformationToDict();
+
+
+
         onBackPressed();
+
+
+
+
     }
 }
 

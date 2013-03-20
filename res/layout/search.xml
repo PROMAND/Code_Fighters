@@ -60,6 +60,7 @@
                         android:text="@string/btn_edit"
                         android:drawableLeft="@drawable/pen"
                         android:id="@+id/btn_edit"
+                        android:onClick="btn_edit_click"
                         android:layout_gravity="bottom"/>
                 <Button
                         android:layout_width="fill_parent"

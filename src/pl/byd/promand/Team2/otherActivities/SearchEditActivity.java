@@ -36,6 +36,7 @@ public class SearchEditActivity extends SherlockActivity {
                 btn.setEnabled(false);
                lv_result.setAdapter(null);
                choosedType = "Visit";
+               intent = new Intent(SearchEditActivity.this, VisitAdditingActivity.class);
 
             }
             else {
@@ -114,6 +115,7 @@ public class SearchEditActivity extends SherlockActivity {
     }
     @Override
     public void onResume(){
+
         if(String.valueOf(spinner.getSelectedItem()).equals("Patient") && SearchingResultActivity.takePatient!=null){
         ArrayList<String> generalList = new ArrayList<String>();
         generalList.add("Name: " + String.valueOf(SearchingResultActivity.takePatient.get("name")));
@@ -138,28 +140,14 @@ public class SearchEditActivity extends SherlockActivity {
         lv_result.setAdapter(adapter);
 
     }
+
         if(String.valueOf(spinner.getSelectedItem()).equals("Payer") && SearchingResultActivity.takePayer!=null){
             ArrayList<String> generalList = new ArrayList<String>();
             generalList.add("Name of company: " + String.valueOf(SearchingResultActivity.takePayer.get("name")));
             generalList.add("E-mail: " + String.valueOf(SearchingResultActivity.takePayer.get("email")));
             generalList.add("Phone: " + String.valueOf(SearchingResultActivity.takePayer.get("phone")));
             generalList.add("Address: " + String.valueOf(SearchingResultActivity.takePayer.get("address")));
-            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takePayer.get("additional_info")));
-
-            ArrayAdapter adapter=new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1,
-                    generalList);
-
-            lv_result.setAdapter(adapter);
-
-        }
-        if(String.valueOf(spinner.getSelectedItem()).equals("Payer") && SearchingResultActivity.takePayer!=null){
-            ArrayList<String> generalList = new ArrayList<String>();
-            generalList.add("Name of company: " + String.valueOf(SearchingResultActivity.takePayer.get("name")));
-            generalList.add("E-mail: " + String.valueOf(SearchingResultActivity.takePayer.get("email")));
-            generalList.add("Phone: " + String.valueOf(SearchingResultActivity.takePayer.get("phone")));
-            generalList.add("Address: " + String.valueOf(SearchingResultActivity.takePayer.get("address")));
-            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takePayer.get("additional_info")));
+            generalList.add("Additional info: " + String.valueOf(SearchingResultActivity.takePayer.get("additional_info")));
 
             ArrayAdapter adapter=new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1,
@@ -176,7 +164,7 @@ public class SearchEditActivity extends SherlockActivity {
             generalList.add("Date: " + String.valueOf(SearchingResultActivity.takeVisit.get("date")));
             generalList.add("Time: " + String.valueOf(SearchingResultActivity.takeVisit.get("time")));
             generalList.add("Duration: " + String.valueOf(SearchingResultActivity.takeVisit.get("duration")));
-            generalList.add("Additional_info: " + String.valueOf(SearchingResultActivity.takeVisit.get("additional_info")));
+            generalList.add("Additional info: " + String.valueOf(SearchingResultActivity.takeVisit.get("additional_info")));
 
             ArrayAdapter adapter=new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1,
@@ -205,6 +193,9 @@ public class SearchEditActivity extends SherlockActivity {
             lv_result.setAdapter(adapter);
 
         }
+
+
+
         super.onResume();
    }
     public void btn_delete_click(View v){
@@ -231,5 +222,11 @@ public class SearchEditActivity extends SherlockActivity {
         SearchingResultActivity.takePayer = null;
         lv_result.setAdapter(null);
 
+    }
+    public void btn_edit_click(View v){
+        if(choosedType.equals("Visit")){
+            intent.putExtra("result","edVisit");
+            SearchEditActivity.this.startActivity(intent);
+        }
     }
 }
