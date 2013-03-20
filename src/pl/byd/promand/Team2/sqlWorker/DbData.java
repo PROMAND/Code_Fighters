@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DbData {
 
+
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
@@ -57,10 +58,11 @@ public class DbData {
             result.moveToFirst();
             String name;
             String surname;
-
+            int _id = result.getInt(0);
             name = result.getString(1);
             surname = result.getString(2);
 
+            temp.put("_id", _id);
             temp.put("name",name);
             temp.put("surname",surname);
             result.close();
@@ -347,5 +349,47 @@ public class DbData {
 
         close();
         return temp;
+    }
+    public long deleteMedicalCertificate(int id){
+        return database.delete("medical_certifcates", "_id="+ id, null);
+    }
+    public long deletePayer(int id){
+        database.delete("medical_certifcates", "payer_id="+ id, null);
+        return database.delete("payers", "_id="+ id, null);
+    }
+    public long deleteVisit(int id){
+        database.delete("medical_certifcates", "patient_id="+id, null) ;
+        return database.delete("visits", "_id="+ id, null);
+    }
+    public long deletePatient(int id){
+        database.delete("contacts", "patient_id="+id, null) ;
+
+        if(database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null)!=null){
+            Cursor cursor = database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null);
+            if(cursor.getCount()>0){cursor.moveToFirst();
+                do{
+                   if (database.rawQuery("SELECT * FROM medical_certifcates WHERE patient_id="+cursor.getInt(0), null)!=null)
+                        {database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);}
+                   if (database.rawQuery("SELECT * FROM visits WHERE _id="+cursor.getInt(0), null)!=null)
+                        {database.delete("visits", "_id="+cursor.getInt(0), null);  }
+                }while(cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        return database.delete("patients", "_id="+ id, null);
+    }
+    public long updatePatient(ContentValues patient, ContentValues address){
+       database.update("contacts",address , "patient_id="+patient.get("id"), null);
+       return database.update("patients", patient, "_id="+patient.get("id"), null);
+    }
+    public long updatePayer(ContentValues payer){
+        return database.update("payers", payer, "_id="+payer.get("id"), null);
+    }
+    public long updateVisit(ContentValues visit){
+        return database.update("visits", visit, "_id="+visit.get("id"), null);
+    }
+    public long updateMedicalCertifcates (ContentValues mc){
+        return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
     }
 }
