@@ -352,23 +352,22 @@ public class DbData {
         return database.delete("medical_certifcates", "_id="+ id, null);
     }
     public long deletePayer(int id){
-        database.rawQuery("DELETE FROM medical_certifcates WHERE payer_id="+id, null);
+        database.delete("medical_certifcates", "payer_id="+ id, null);
         return database.delete("payers", "_id="+ id, null);
     }
     public long deleteVisit(int id){
-        database.rawQuery("DELETE FROM medical_certifcates WHERE patient_id="+id, null);
+        database.delete("medical_certifcates", "patient_id="+id, null) ;
         return database.delete("visits", "_id="+ id, null);
     }
     public long deletePatient(int id){
-        database.rawQuery("DELETE FROM contacts WHERE patient_id="+id, null);
+        database.delete("contacts", "patient_id="+id, null) ;
 
         Cursor cursor = database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null);
         cursor.moveToFirst();
         do{
+           database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);
            database.delete("visits", "_id="+cursor.getInt(0), null);
         }while(cursor.moveToNext());
-
-        database.rawQuery("DELETE FROM medical_certifcates WHERE patient_id="+id, null);
 
         return database.delete("patients", "_id="+ id, null);
     }
