@@ -194,7 +194,10 @@ public class DbData {
     }
 
     public long insertVisit(ContentValues visit){
-        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
+        String date = String.valueOf(visit.get("date"));
+        String time = String.valueOf(visit.get("time"));
+        Integer duration = Integer.parseInt(String.valueOf(visit.get("duration")));
+        if(checkTime(date, time, duration))
         return database.insert("visits",null,visit);
         else return 0;
     }
@@ -423,28 +426,67 @@ public class DbData {
         return database.update("payers", payer, "_id="+payer.get("id"), null);
     }
     public long updateVisit(ContentValues visit){
-        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
+        //if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
             return database.update("visits", visit, "_id="+visit.get("id"), null);
-        else return 0;
+      //  else return 0;
     }
     public long updateMedicalCertifcates (ContentValues mc){
         return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
     }
     public boolean checkTime(String date,String time, Integer duration){
-        String [] explodedDate = date.split(",");
+        String [] explodedDate = date.split("-");
         String [] explodedTime = time.split(":");
-        Log.e("bla",explodedDate[0] + " __ "+ explodedDate[1] + " __ "+ explodedDate[2] );
-//        Integer day = Integer.parseInt(explodedDate[0]);
-//        Integer month = Integer.parseInt(explodedDate[1]);
-//        Integer year = Integer.parseInt(explodedDate[2]);
-//
-//        Integer hour = Integer.parseInt(explodedTime[0]);
-//        Integer minutes = Integer.parseInt(explodedTime[1]);
-//
-//        Calendar c = Calendar.getInstance();
-//        c.set(year, month, day, hour, minutes);
-//        c.add(Calendar.MINUTE, duration);
-//        Log.v("calendar","" + c);
+
+
+        String day = String.format("%02d", Integer.parseInt(explodedDate[2]));
+        String month = String.format("%02d", Integer.parseInt(explodedDate[1]));
+        String year = String.format("%04d", Integer.parseInt(explodedDate[0]));
+
+        String hour = String.format("%02d", Integer.parseInt(explodedTime[0]));
+        String minutes = String.format("%02d", Integer.parseInt(explodedTime[1]));
+
+        String datafortimestamp ="SELECT strftime('%s' , '" + year+"-"+month+"-"+day+" "+hour+":"+minutes + "')as begin LIMIT 1";
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), Integer.parseInt(hour), Integer.parseInt(minutes));
+        c.add(Calendar.MINUTE, duration);
+        String nday = String.format("%02d", c.get(Calendar.DAY_OF_MONTH)) ;
+        String nmonth = String.format("%02d", c.get(Calendar.MONTH)) ;
+        String nyear = String.format("%04d", c.get(Calendar.YEAR)) ;
+        String nhour = String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) ;
+        String nminutes  =String.format("%02d", c.get(Calendar.MINUTE)) ;
+
+        String datafortimestampc ="SELECT strftime('%s' , '" + nyear + "-" + nmonth + "-" + nday + " " + nhour + ":" + nminutes + "')as end LIMIT 1";
+
+        String begin, end;
+        Cursor fc = database.rawQuery(datafortimestamp, null);
+        fc.moveToFirst();
+        begin = String.valueOf(fc.getInt(0));
+        fc.close();
+
+        Cursor sc = database.rawQuery(datafortimestampc, null);
+        sc.moveToFirst();
+        end = String.valueOf(sc.getString(0));
+        sc.close();
+
+        String checkquery = "SELECT strftime('%s' , date || time) as start, strftime('%s' , date || time)+(duration*60) FROM visits";
+        Cursor cq = database.rawQuery(checkquery, null);
+        cq.moveToFirst();
+
+        Integer qstart, qstop;
+
+        if(cq.moveToFirst() && cq.getCount() >= 1){
+            do{
+                qstart = cq.getInt(0);
+                qstop = cq.getInt(1);
+               if(qstart < Integer.parseInt(begin) && Integer.parseInt(begin) < qstop || qstart< Integer.parseInt(end) && Integer.parseInt(end) <qstop )
+                    {
+                        cq.close();
+                        return false;
+                    }
+            }while(cq.moveToNext());
+        }
+
+        cq.close();
 
         return true;
     }
