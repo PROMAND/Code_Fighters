@@ -362,15 +362,17 @@ public class DbData {
     public long deletePatient(int id){
         database.delete("contacts", "patient_id="+id, null) ;
 
-        Cursor cursor = database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null);
-        cursor.moveToFirst();
-        do{
-           if (database.rawQuery("SELECT * FROM medical_certifcates WHERE patient_id="+cursor.getInt(0), null)!=null)
-                {database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);}
-           if (database.rawQuery("SELECT * FROM visits WHERE _id="+cursor.getInt(0), null)!=null)
-                {database.delete("visits", "_id="+cursor.getInt(0), null);  }
-        }while(cursor.moveToNext());
-        cursor.close();
+        if(database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null)!=null){
+            Cursor cursor = database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null);
+            cursor.moveToFirst();
+            do{
+               if (database.rawQuery("SELECT * FROM medical_certifcates WHERE patient_id="+cursor.getInt(0), null)!=null)
+                    {database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);}
+               if (database.rawQuery("SELECT * FROM visits WHERE _id="+cursor.getInt(0), null)!=null)
+                    {database.delete("visits", "_id="+cursor.getInt(0), null);  }
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
 
         return database.delete("patients", "_id="+ id, null);
     }
