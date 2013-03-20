@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DbData {
@@ -193,7 +194,9 @@ public class DbData {
     }
 
     public long insertVisit(ContentValues visit){
+        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
         return database.insert("visits",null,visit);
+        else return 0;
     }
 
     public List<ContentValues> getVisits()  {
@@ -287,6 +290,37 @@ public class DbData {
         }
         return listVisit;
     }
+    public ContentValues getMedicalCertificateById(int id){
+        ContentValues temp = new ContentValues();
+
+        if(database!=null && database.isOpen()){
+            close();
+            Log.e("blabla", "ERROR");
+            return null;
+        } else {
+            open();
+            Cursor result = database.rawQuery("SELECT * FROM medical_certifcates WHERE _id=" + id + " LIMIT 1",null);
+            result.moveToFirst();
+            Integer _id, patient_id, payer_id;
+            String arrived;
+
+            _id = result.getInt(0);
+            patient_id = result.getInt(1);
+            payer_id = result.getInt(2);
+            arrived = result.getString(3);
+
+
+            temp.put("_id",_id);
+            temp.put("patient_id",patient_id);
+            temp.put("payer_id",payer_id);
+            temp.put("arrived",arrived);
+
+            result.close();
+        }
+
+        close();
+        return temp;
+    }
     public ContentValues getPayerById(int id){
         ContentValues temp = new ContentValues();
 
@@ -298,15 +332,17 @@ public class DbData {
             open();
             Cursor result = database.rawQuery("SELECT * FROM payers WHERE _id=" + id + " LIMIT 1",null);
             result.moveToFirst();
-
+            Integer _id;
             String name, email, phone, address, additional_info;
 
+            _id = result.getInt(0);
             name = result.getString(1);
             email = result.getString(2);
             phone = result.getString(3);
             address = result.getString(4);
             additional_info = result.getString(5);
 
+            temp.put("_id",_id);
             temp.put("name",name);
             temp.put("email",email);
             temp.put("phone",phone);
@@ -387,9 +423,29 @@ public class DbData {
         return database.update("payers", payer, "_id="+payer.get("id"), null);
     }
     public long updateVisit(ContentValues visit){
-        return database.update("visits", visit, "_id="+visit.get("_id"), null);
+        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
+            return database.update("visits", visit, "_id="+visit.get("id"), null);
+        else return 0;
     }
     public long updateMedicalCertifcates (ContentValues mc){
         return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
+    }
+    public boolean checkTime(String date,String time, Integer duration){
+        String [] explodedDate = date.split(",");
+        String [] explodedTime = time.split(":");
+        Log.e("bla",explodedDate[0] + " __ "+ explodedDate[1] + " __ "+ explodedDate[2] );
+//        Integer day = Integer.parseInt(explodedDate[0]);
+//        Integer month = Integer.parseInt(explodedDate[1]);
+//        Integer year = Integer.parseInt(explodedDate[2]);
+//
+//        Integer hour = Integer.parseInt(explodedTime[0]);
+//        Integer minutes = Integer.parseInt(explodedTime[1]);
+//
+//        Calendar c = Calendar.getInstance();
+//        c.set(year, month, day, hour, minutes);
+//        c.add(Calendar.MINUTE, duration);
+//        Log.v("calendar","" + c);
+
+        return true;
     }
 }
