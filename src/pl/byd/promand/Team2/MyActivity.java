@@ -21,17 +21,17 @@ public class MyActivity extends SherlockActivity {
 
 
     public void btn_login_click(View v){
-        EditText et_login = (EditText)findViewById(R.id.et_login);
+        /*EditText et_login = (EditText)findViewById(R.id.et_login);
         String temp_login = et_login.getText().toString();
         EditText et_pass = (EditText)findViewById(R.id.et_pass);
         String temp_pass = et_pass.getText().toString();
         if(!PASSWORD.equals(temp_pass) || !LOGIN.equals(temp_login)){
             Toast.makeText(this,"Incorrect login or password!",1000).show();
         }
-        else{
+        else{   */
             Intent intent = new Intent(this, MainActivity.class);
             MyActivity.this.startActivity(intent);
-        }
+       // }
     }
 
 
