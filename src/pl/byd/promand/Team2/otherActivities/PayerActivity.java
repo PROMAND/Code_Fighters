@@ -24,6 +24,19 @@ import java.util.Map;
 public class PayerActivity extends SherlockActivity {
     ContentValues payerFields = new ContentValues();
     private DbData db = new DbData(this);
+    private void LoadFields(){
+        EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
+        EditText et_email_payer = (EditText)findViewById(R.id.et_email_payer);
+        EditText et_phone_payer = (EditText)findViewById(R.id.et_phone_payer);
+        EditText et_address = (EditText)findViewById(R.id.et_address_payer);
+        EditText et_additional_info_payer = (EditText)findViewById(R.id.et_additional_info_payer);
+        ContentValues tempPayer = SearchingResultActivity.takePayer;
+        et_name_of_company.setText(String.valueOf(tempPayer.get("name")));
+        et_email_payer.setText(String.valueOf(tempPayer.get("email")));
+        et_phone_payer.setText(String.valueOf(tempPayer.get("phone")));
+        et_address.setText(String.valueOf(tempPayer.get("address")));
+        et_additional_info_payer.setText(String.valueOf(tempPayer.get("additional_info")));
+    }
     private void SaveInformationToDict(){
         db.open();
         EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
@@ -43,18 +56,33 @@ public class PayerActivity extends SherlockActivity {
         payerFields.put("phone",phone_payer);
         payerFields.put("address",address);
         payerFields.put("additional_info",additional_info_payer);
-        db.insertPayer(payerFields);
+        if(PayerActivity.this.getIntent().getStringExtra("result")!=null && PayerActivity.this.getIntent().getStringExtra("result").equals("edPayer")){
+           payerFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
+           db.updatePayer(payerFields);
+            SearchingResultActivity.takePayer = payerFields;
+        }
+        else {
+            db.insertPayer(payerFields);
+        }
         db.close();
+
     }
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.payer);
+
+        if(PayerActivity.this.getIntent().getStringExtra("result")!=null && PayerActivity.this.getIntent().getStringExtra("result").equals("edPayer")){
+            LoadFields();
+        }
     }
 
     public void btn_save_payer_click(View v){
+
+
        SaveInformationToDict();
        onBackPressed();
+
     }
     public Intent intent;
     //Selecting the menu iteam

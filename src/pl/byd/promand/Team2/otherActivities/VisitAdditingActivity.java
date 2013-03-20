@@ -62,7 +62,7 @@ public class VisitAdditingActivity extends SherlockActivity {
         }
         db.close();
         if(visitFields.get("_id")!=null) {
-        SearchingResultActivity.takeVisit = db.getVisitById(Integer.parseInt(String.valueOf(visitFields.get("_id"))));
+        SearchingResultActivity.takeVisit = visitFields;
         }
     }
     private void LoadFields(){
