@@ -28,9 +28,12 @@ public class AddMedicalCertificate extends SherlockActivity {
     ContentValues temp = SearchingResultActivity.takeMedicalCertificate;
 
     private void SaveInformationToDict(){
-
-        payer_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id")));
-        visit_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id")));
+        if(SearchingResultActivity.takePayer!=null){
+            payer_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id")));
+        }
+        if(SearchingResultActivity.takeVisit!=null){
+            visit_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id")));
+        }
         medical_certificate.put("patient_id",visit_id);
         medical_certificate.put("payer_id",payer_id);
         CheckBox cb = (CheckBox)findViewById(R.id.cb_appear);
@@ -38,6 +41,7 @@ public class AddMedicalCertificate extends SherlockActivity {
         if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
         {
             medical_certificate.put("_id",String.valueOf(temp.get("id")));
+
 
         }
     }
@@ -48,12 +52,12 @@ public class AddMedicalCertificate extends SherlockActivity {
         TextView yourPayer = (TextView)findViewById(R.id.tv_yourPayerResult);
         TextView yourVisit = (TextView)findViewById(R.id.tv_yourVisitResult);
         DbData db = new DbData(this);
-        db.open();
-        ContentValues visit = db.getVisitById(Integer.parseInt(String.valueOf(temp.get("patient_id"))));
-        ContentValues payer = db.getPayerById(Integer.parseInt(String.valueOf(temp.get("payer_id"))));
+
+        ContentValues visit = db.getVisitById(visit_id);
+        ContentValues payer = db.getPayerById(payer_id);
         yourPayer.setText(String.valueOf(payer.get("name")));
         yourVisit.setText(String.valueOf(visit.get("date")) + " " + String.valueOf(visit.get("time")));
-        db.close();
+
         CheckBox ch = (CheckBox)findViewById(R.id.cb_appear);
         ch.setChecked(Boolean.valueOf(String.valueOf(temp.get("arrived"))));
         Log.e("tag","blabla");
