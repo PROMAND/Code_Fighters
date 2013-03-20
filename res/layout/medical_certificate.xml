@@ -34,6 +34,32 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_visit"
+                        android:id="@+id/tv_yourChoose"
+                        android:layout_gravity="right"
+                        />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/temp"
+                        android:id="@+id/tv_yourVisitResult"
+                        android:gravity="center"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
                 android:layout_weight="1"
                 android:layout_height="fill_parent">
             <EditText
@@ -41,7 +67,7 @@
                     android:layout_weight="1"
                     android:hint="@string/temp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_select_payer" />
+                    android:id="@+id/et_select_payer" android:orientation="vertical"/>
             <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -50,6 +76,32 @@
                     android:id="@+id/btn_select_payer"
                     android:drawableLeft="@drawable/stock_view_details"
                     android:onClick="btn_select_payer_click"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="left">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_payer"
+                        android:id="@+id/tv_yourChoose"
+                        android:layout_gravity="right"
+                        />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/temp"
+                        android:id="@+id/tv_yourPayerResult"
+                        android:gravity="center"
+                        />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
@@ -66,7 +118,7 @@
     </LinearLayout>
     <LinearLayout
             android:orientation="vertical"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
         <LinearLayout
