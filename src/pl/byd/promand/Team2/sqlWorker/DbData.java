@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DbData {
 
+
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
