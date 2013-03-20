@@ -3,8 +3,11 @@ package pl.byd.promand.Team2.otherActivities;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -22,6 +25,7 @@ public class AddMedicalCertificate extends SherlockActivity {
     ContentValues medical_certificate = new ContentValues();
     Integer visit_id;
     Integer payer_id;
+    ContentValues temp = SearchingResultActivity.takeMedicalCertificate;
 
     private void SaveInformationToDict(){
 
@@ -31,11 +35,37 @@ public class AddMedicalCertificate extends SherlockActivity {
         medical_certificate.put("payer_id",payer_id);
         CheckBox cb = (CheckBox)findViewById(R.id.cb_appear);
         medical_certificate.put("arrived",String.valueOf(cb.isChecked()));
+        if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
+        {
+            medical_certificate.put("_id",String.valueOf(temp.get("id")));
+
+        }
+    }
+    public void LoadFields(){
+        ContentValues temp = SearchingResultActivity.takeMedicalCertificate;
+        payer_id = Integer.parseInt(String.valueOf(temp.get("payer_id")));
+        visit_id = Integer.parseInt(String.valueOf(temp.get("patient_id")));
+        TextView yourPayer = (TextView)findViewById(R.id.tv_yourPayerResult);
+        TextView yourVisit = (TextView)findViewById(R.id.tv_yourVisitResult);
+        DbData db = new DbData(this);
+        db.open();
+        ContentValues visit = db.getVisitById(Integer.parseInt(String.valueOf(temp.get("patient_id"))));
+        ContentValues payer = db.getPayerById(Integer.parseInt(String.valueOf(temp.get("payer_id"))));
+        yourPayer.setText(String.valueOf(payer.get("name")));
+        yourVisit.setText(String.valueOf(visit.get("date")) + " " + String.valueOf(visit.get("time")));
+        db.close();
+        CheckBox ch = (CheckBox)findViewById(R.id.cb_appear);
+        ch.setChecked(Boolean.valueOf(String.valueOf(temp.get("arrived"))));
+        Log.e("tag","blabla");
     }
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.medical_certificate);
+        if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
+        {
+            LoadFields();
+        }
     }
     public Intent intent;
     //Selecting the menu iteam
@@ -91,7 +121,11 @@ public class AddMedicalCertificate extends SherlockActivity {
       DbData db = new DbData(this);
       db.open();
       SaveInformationToDict();
-      db.insertMedicalCertificate(medical_certificate);
+        if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
+        {    db.updateMedicalCertifcates(medical_certificate);
+        }else{
+            db.insertMedicalCertificate(medical_certificate);
+        }
       db.close();
     }
 }

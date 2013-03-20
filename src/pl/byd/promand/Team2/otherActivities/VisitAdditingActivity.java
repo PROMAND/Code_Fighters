@@ -146,7 +146,7 @@ public class VisitAdditingActivity extends SherlockActivity {
                      _Day = String.valueOf(dayOfMonth);
                     }
                     TextView tv_result = (TextView)findViewById(R.id.tv_yourDateResult);
-                    tv_result.setText(_Day + "/" + _Month + "/" + _Year);
+                    tv_result.setText(_Year + "-" + _Month + "-" + _Day);
                 }
             };
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
