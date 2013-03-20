@@ -19,6 +19,7 @@ public class SearchEditActivity extends SherlockActivity {
     Spinner spinner;
     Intent intent;
     ListView lv_result;
+    String choosedType = "Visit";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class SearchEditActivity extends SherlockActivity {
             if(item.equals("Visit")){
                 btn.setEnabled(false);
                lv_result.setAdapter(null);
+               choosedType = "Visit";
 
             }
             else {
@@ -41,6 +43,7 @@ public class SearchEditActivity extends SherlockActivity {
                     btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PatientActivity.class);
                     lv_result.setAdapter(null);
+                    choosedType = "Patient";
 
                 }
                 else{
@@ -48,11 +51,13 @@ public class SearchEditActivity extends SherlockActivity {
                      btn.setEnabled(true);
                     intent = new Intent(SearchEditActivity.this, PayerActivity.class);
                         lv_result.setAdapter(null);
+                        choosedType = "Payer";
                     }
                     else{
                         btn.setEnabled(true);
                         intent = new Intent(SearchEditActivity.this, AddMedicalCertificate.class);
                         lv_result.setAdapter(null);
+                        choosedType = "Medical certificate";
                     }
                 }
             }
@@ -191,6 +196,7 @@ public class SearchEditActivity extends SherlockActivity {
             generalList.add("Time: " + visit.get("time"));
             generalList.add("Duration: " + visit.get("duration"));
             generalList.add("Name of company: " + payer.get("name"));
+            generalList.add("Arrived: " + String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("arrived")));
 
             ArrayAdapter adapter=new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1,
@@ -201,4 +207,29 @@ public class SearchEditActivity extends SherlockActivity {
         }
         super.onResume();
    }
+    public void btn_delete_click(View v){
+
+        DbData db = new DbData(this);
+        db.open();
+        if(choosedType.equals("Visit") && SearchingResultActivity.takeVisit!=null){
+            db.deleteVisit(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
+        }
+        if(choosedType.equals("Payer") && SearchingResultActivity.takePayer!=null){
+            db.deletePayer(Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
+        }
+        if(choosedType.equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null){
+            db.deleteMedicalCertificate(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
+
+        }
+        if(choosedType.equals("Patient") && SearchingResultActivity.takePatient!=null){
+            db.deletePatient(Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
+        }
+        db.close();
+        SearchingResultActivity.takeVisit = null;
+        SearchingResultActivity.takePatient= null;
+        SearchingResultActivity.takeMedicalCertificate = null;
+        SearchingResultActivity.takePayer = null;
+        lv_result.setAdapter(null);
+
+    }
 }

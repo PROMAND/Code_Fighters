@@ -365,13 +365,14 @@ public class DbData {
 
         if(database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null)!=null){
             Cursor cursor = database.rawQuery("SELECT _id FROM visits WHERE patient_id=" + id, null);
-            cursor.moveToFirst();
-            do{
-               if (database.rawQuery("SELECT * FROM medical_certifcates WHERE patient_id="+cursor.getInt(0), null)!=null)
-                    {database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);}
-               if (database.rawQuery("SELECT * FROM visits WHERE _id="+cursor.getInt(0), null)!=null)
-                    {database.delete("visits", "_id="+cursor.getInt(0), null);  }
-            }while(cursor.moveToNext());
+            if(cursor.getCount()>0){cursor.moveToFirst();
+                do{
+                   if (database.rawQuery("SELECT * FROM medical_certifcates WHERE patient_id="+cursor.getInt(0), null)!=null)
+                        {database.delete("medical_certifcates", "patient_id="+cursor.getInt(0), null);}
+                   if (database.rawQuery("SELECT * FROM visits WHERE _id="+cursor.getInt(0), null)!=null)
+                        {database.delete("visits", "_id="+cursor.getInt(0), null);  }
+                }while(cursor.moveToNext());
+            }
             cursor.close();
         }
 

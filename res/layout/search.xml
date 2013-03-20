@@ -76,6 +76,7 @@
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/remove"
                         android:text="@string/btn_delete"
+                        android:onClick="btn_delete_click"
                         android:id="@+id/btn_delete"
                         android:layout_gravity="bottom"/>
             </LinearLayout>

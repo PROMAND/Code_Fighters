@@ -160,8 +160,7 @@ public class SearchingResultActivity extends SherlockActivity {
                   ContentValues payer = db.getPayerById(Integer.parseInt(String.valueOf(certificate.get("payer_id"))));
                   ContentValues visit = db.getVisitById(Integer.parseInt(String.valueOf(certificate.get("patient_id"))));
                   ContentValues patient = db.getPatientById(Integer.parseInt(String.valueOf(visit.get("patient_id"))));
-                   appeared = String.valueOf(certificate.get("arrived"));
-                  generalList.add(String.valueOf(visit.get("date")) + " " + String.valueOf(visit.get("time")) + " " +String.valueOf(patient.get("name")) + " " + String.valueOf(patient.get("surname")) + " " +  String.valueOf(payer.get("name")) +" " + appeared);
+                  generalList.add(String.valueOf(visit.get("date")) + " " + String.valueOf(visit.get("time")) + "\n" +String.valueOf(patient.get("name")) + " " + String.valueOf(patient.get("surname")) + "\n" +  String.valueOf(payer.get("name")));
                }
                if(generalList == null){
                    Log.e("blala","ERRROOROR"); }
