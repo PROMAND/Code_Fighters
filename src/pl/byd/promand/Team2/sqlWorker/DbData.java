@@ -58,10 +58,11 @@ public class DbData {
             result.moveToFirst();
             String name;
             String surname;
-
+            int _id = result.getInt(0);
             name = result.getString(1);
             surname = result.getString(2);
 
+            temp.put("_id", _id);
             temp.put("name",name);
             temp.put("surname",surname);
             result.close();
