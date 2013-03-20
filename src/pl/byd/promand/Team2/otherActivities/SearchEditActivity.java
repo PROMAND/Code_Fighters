@@ -232,5 +232,9 @@ public class SearchEditActivity extends SherlockActivity {
             intent.putExtra("result","edPayer");
             SearchEditActivity.this.startActivity(intent);
         }
+        if(choosedType.equals("Patient")){
+            intent.putExtra("result","edPatient");
+            SearchEditActivity.this.startActivity(intent);
+        }
     }
 }

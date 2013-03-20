@@ -75,17 +75,64 @@ public class PatientActivity extends SherlockActivity {
         patientAddressFields.put("number_of_house",number_of_house);
         patientAddressFields.put("number_of_flat",number_of_flat);
         patientFields.put("additional_info", additional_info);
+        if(PatientActivity.this.getIntent().getStringExtra("result")!=null && PatientActivity.this.getIntent().getStringExtra("result").equals("edPatient")){
+            patientFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
+            patientAddressFields.put("patient_id", Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
+            db.updatePatient(patientFields, patientAddressFields);
+            patientFields.putAll(patientAddressFields);
+            SearchingResultActivity.takePatient = patientFields;
+        }
+        else {
+            long test = db.insertPatient(patientFields);
+            patientAddressFields.put("patient_id", test);
+            db.insertPatientAddress(patientAddressFields);
+        }
 
-        long test = db.insertPatient(patientFields);
-        patientAddressFields.put("patient_id", test);
-        db.insertPatientAddress(patientAddressFields);
         db.close();
+    }
+    private void LoadFields(){
+        EditText et_name = (EditText)findViewById(R.id.et_name);
+        EditText et_surname = (EditText)findViewById(R.id.et_surname);
+        EditText et_sex = (EditText)findViewById(R.id.et_sex);
+        EditText et_date_of_birth = (EditText)findViewById(R.id.et_date_of_birth);
+        EditText et_id_patient = (EditText)findViewById(R.id.et_id_patient);
+        EditText et_country = (EditText)findViewById(R.id.et_country);
+        EditText et_postal_code = (EditText)findViewById(R.id.et_postal_code);
+        EditText et_email = (EditText)findViewById(R.id.et_email);
+        EditText et_phone = (EditText)findViewById(R.id.et_phone);
+        EditText et_additional_info = (EditText)findViewById(R.id.et_additional_info);
+        EditText et_state = (EditText)findViewById(R.id.et_state);
+        EditText et_town = (EditText)findViewById(R.id.et_town);
+        EditText et_street = (EditText)findViewById(R.id.et_street);
+        EditText et_number_of_house = (EditText)findViewById(R.id.et_number_of_house);
+        EditText et_number_of_flat = (EditText)findViewById(R.id.et_number_of_flat);
+         ContentValues temp = SearchingResultActivity.takePatient;
+
+        et_name.setText(String.valueOf(temp.get("name")));
+        et_surname.setText(String.valueOf(temp.get("surname")));
+        et_sex.setText(String.valueOf(temp.get("sex")));
+        et_date_of_birth.setText(String.valueOf(temp.get("date_of_birth")));
+        et_id_patient.setText(String.valueOf(temp.get("pesel")));
+        et_country.setText(String.valueOf(temp.get("country")));
+        et_postal_code.setText(String.valueOf(temp.get("postal_code")));
+        et_email.setText(String.valueOf(temp.get("email")));
+        et_phone.setText(String.valueOf(temp.get("phone")));
+        et_additional_info.setText(String.valueOf(temp.get("additional_info")));
+        et_state.setText(String.valueOf(temp.get("state")));
+        et_town.setText(String.valueOf(temp.get("town")));
+        et_street.setText(String.valueOf(temp.get("street")));
+        et_number_of_house.setText(String.valueOf(temp.get("number_of_house")));
+        et_number_of_flat.setText(String.valueOf(temp.get("number_of_flat")));
+
     }
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.patient);
         DbData db = null;
+        if(PatientActivity.this.getIntent().getStringExtra("result")!= null && PatientActivity.this.getIntent().getStringExtra("result").equals("edPatient")){
+            LoadFields();
+        }
     }
 
     public void btn_save_patient_click(View v){
