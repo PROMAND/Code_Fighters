@@ -511,7 +511,7 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM visits WHERE date=\"" + mydate + "\"", null);
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE date=\"" + mydate + "\" ORDER BY time", null);
             result.moveToFirst();
 
             String  date, time, additional_info;
