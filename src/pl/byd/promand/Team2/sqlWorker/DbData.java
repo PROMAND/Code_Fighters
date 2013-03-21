@@ -199,7 +199,7 @@ public class DbData {
         Integer duration = Integer.parseInt(String.valueOf(visit.get("duration")));
         if(checkTime(date, time, duration))
         return database.insert("visits",null,visit);
-        else return 0;
+        else return 1;
     }
 
     public List<ContentValues> getVisits()  {
@@ -251,6 +251,7 @@ public class DbData {
     }
 
     public long insertMedicalCertificate(ContentValues mc){
+
         return database.insert("medical_certifcates", null, mc);
     }
     public List<ContentValues> getMedicalCertificate()  {
@@ -428,7 +429,7 @@ public class DbData {
     public long updateVisit(ContentValues visit){
         if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
             return database.update("visits", visit, "_id="+visit.get("_id"), null);
-        else return 0;
+        else return 1;
     }
     public long updateMedicalCertifcates (ContentValues mc){
         return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
@@ -489,5 +490,47 @@ public class DbData {
         cq.close();
 
         return true;
+    }
+    public List<ContentValues> getTodayVisits(String mydate){
+       ContentValues temp;
+       List<ContentValues> tempList = new ArrayList<ContentValues>();
+
+
+        if(database!=null && database.isOpen()){
+            close();
+            Log.e("blabla", "ERROR");
+            return null;
+        } else {
+            open();
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE date=\"" + mydate + "\"" ,null);
+            result.moveToFirst();
+
+            String  date, time, additional_info;
+            int id, patient_id, duration;
+            if(result.moveToFirst() && result.getCount() >= 1){
+                do{
+                    temp = new ContentValues();
+                    id = result.getInt(0);
+                    patient_id = result.getInt(1);
+                    date = result.getString(2);
+                    time = result.getString(3);
+                    duration = result.getInt(4);
+                    additional_info = result.getString(5);
+
+                    temp.put("id",id);
+                    temp.put("patient_id",patient_id);
+                    temp.put("date",date);
+                    temp.put("time",time);
+                    temp.put("duration",duration);
+                    temp.put("additional_info",additional_info);
+                    tempList.add(temp);
+                }while(result.moveToNext());
+            result.close();
+        }
+
+        close();
+        return tempList;
+
+         }
     }
 }
