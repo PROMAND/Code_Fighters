@@ -379,7 +379,7 @@ public class DbData {
             Integer _id;
             String name, email, phone, address, additional_info;
 
-            _id = result.getInt(0);
+            _id = id;
             name = result.getString(1);
             email = result.getString(2);
             phone = result.getString(3);
