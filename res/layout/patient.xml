@@ -42,6 +42,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/et_name"
+                            android:inputType="textCapSentences"
                             />
                     <TextView
                             android:layout_width="fill_parent"
@@ -51,6 +52,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_surname"/>
                     <TextView
                             android:layout_width="wrap_content"
@@ -61,7 +63,9 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_sex"
+
                             />
                     <TextView
                             android:layout_width="fill_parent"
@@ -71,6 +75,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="date"
                             android:id="@+id/et_date_of_birth"/>
                     <TextView
                             android:layout_width="wrap_content"
@@ -82,6 +87,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/et_id_patient"
+                            android:inputType="numberDecimal"
                             />
                     <TextView
                             android:layout_width="fill_parent"
@@ -91,6 +97,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_country"/>
                     <TextView
                             android:layout_width="fill_parent"
@@ -100,6 +107,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_state"/>
                     <TextView
                             android:layout_width="fill_parent"
@@ -109,6 +117,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_town"/>
                     <TextView
                             android:layout_width="fill_parent"
@@ -118,6 +127,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
                             android:id="@+id/et_street"/>
                     <TextView
                             android:layout_width="fill_parent"
@@ -127,6 +137,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             android:id="@+id/et_number_of_house"/>
                     <TextView
                             android:layout_width="fill_parent"
@@ -136,6 +147,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             android:id="@+id/et_number_of_flat"/>
                     <TextView
                             android:layout_width="wrap_content"
@@ -147,6 +159,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/et_postal_code"
+                            android:inputType="numberDecimal"
                             />
                     <TextView
                             android:layout_width="fill_parent"
@@ -156,6 +169,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
                             android:id="@+id/et_email"/>
                     <TextView
                             android:layout_width="wrap_content"
@@ -166,6 +180,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             android:id="@+id/et_phone"
                             />
                     <TextView
