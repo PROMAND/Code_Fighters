@@ -1,7 +1,9 @@
 package pl.byd.promand.Team2.otherActivities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +35,7 @@ public class SearchEditActivity extends SherlockActivity {
             Object item = parent.getItemAtPosition(pos);
             Button btn = (Button)findViewById(R.id.btn_add);
             if(item.equals("Visit")){
-                btn.setEnabled(false);
+                btn.setEnabled(true);
                lv_result.setAdapter(null);
                choosedType = "Visit";
                intent = new Intent(SearchEditActivity.this, VisitAdditingActivity.class);
@@ -199,28 +201,58 @@ public class SearchEditActivity extends SherlockActivity {
         super.onResume();
    }
     public void btn_delete_click(View v){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
 
-        DbData db = new DbData(this);
-        db.open();
-        if(choosedType.equals("Visit") && SearchingResultActivity.takeVisit!=null){
-            db.deleteVisit(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
-        }
-        if(choosedType.equals("Payer") && SearchingResultActivity.takePayer!=null){
-            db.deletePayer(Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
-        }
-        if(choosedType.equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null){
-            db.deleteMedicalCertificate(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
+        // set title
+        alertDialogBuilder.setTitle("Delete");
 
-        }
-        if(choosedType.equals("Patient") && SearchingResultActivity.takePatient!=null){
-            db.deletePatient(Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
-        }
-        db.close();
-        SearchingResultActivity.takeVisit = null;
-        SearchingResultActivity.takePatient= null;
-        SearchingResultActivity.takeMedicalCertificate = null;
-        SearchingResultActivity.takePayer = null;
-        lv_result.setAdapter(null);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("You really want delete this?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        DbData db = new DbData(SearchEditActivity.this);
+                        db.open();
+                        if(choosedType.equals("Visit") && SearchingResultActivity.takeVisit!=null){
+                            db.deleteVisit(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
+                        }
+                        if(choosedType.equals("Payer") && SearchingResultActivity.takePayer!=null){
+                            db.deletePayer(Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
+                        }
+                        if(choosedType.equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null){
+                            db.deleteMedicalCertificate(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
+
+                        }
+                        if(choosedType.equals("Patient") && SearchingResultActivity.takePatient!=null){
+                            db.deletePatient(Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
+                        }
+                        db.close();
+                        SearchingResultActivity.takeVisit = null;
+                        SearchingResultActivity.takePatient= null;
+                        SearchingResultActivity.takeMedicalCertificate = null;
+                        SearchingResultActivity.takePayer = null;
+                        lv_result.setAdapter(null);
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        String choosedType = String.valueOf(spinner.getSelectedItem());
+        if(choosedType.equals("Visit") && SearchingResultActivity.takeVisit!=null) alertDialog.show();
+        if(choosedType.equals("Payer") && SearchingResultActivity.takePayer!=null) alertDialog.show();
+        if(choosedType.equals("Patient") && SearchingResultActivity.takePatient!=null) alertDialog.show();
+        if(choosedType.equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null) alertDialog.show();
+
+
+
 
     }
     public void btn_edit_click(View v){
