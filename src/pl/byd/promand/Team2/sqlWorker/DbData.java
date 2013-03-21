@@ -59,15 +59,51 @@ public class DbData {
             open();
             Cursor result = database.rawQuery("SELECT * FROM patients WHERE _id=" + id + " LIMIT 1",null);
             result.moveToFirst();
+            int _id;
             String name;
             String surname;
-            int _id = result.getInt(0);
+            String sex;
+            String date_of_birth;
+            Integer pesel;
+            String additional_info;
+            String country, state, town;
+            Integer postal_code;
+            String street, number_of_house, number_of_flat, phone, email;
+            _id = result.getInt(0);
             name = result.getString(1);
             surname = result.getString(2);
+            sex = result.getString(3);
+            date_of_birth = result.getString(4);
+            pesel = result.getInt(5);
+            additional_info = result.getString(6);
+            country = result.getString(9);
+            state = result.getString(10);
+            town = result.getString(11);
+            postal_code = result.getInt(12);
+            street = result.getString(13);
+            number_of_house = result.getString(14);
+            number_of_flat = result.getString(15);
+            phone = result.getString(16);
+            email = result.getString(17);
 
-            temp.put("_id", _id);
+            temp.put("id",_id);
             temp.put("name",name);
             temp.put("surname",surname);
+            temp.put("sex",sex);
+            temp.put("date_of_birth",date_of_birth);
+            temp.put("pesel",String.valueOf(pesel));
+            temp.put("additional_info",additional_info);
+            temp.put("country",country);
+            temp.put("state",state);
+            temp.put("town",town);
+            temp.put("town",town);
+            temp.put("postal_code",String.valueOf(postal_code));
+            temp.put("street",street);
+            temp.put("number_of_house",number_of_house);
+            temp.put("number_of_flat",number_of_flat);
+            temp.put("phone",phone);
+            temp.put("email",email);
+
             result.close();
         }
 
@@ -350,7 +386,7 @@ public class DbData {
             address = result.getString(4);
             additional_info = result.getString(5);
 
-            temp.put("_id",_id);
+            temp.put("id",_id);
             temp.put("name",name);
             temp.put("email",email);
             temp.put("phone",phone);
@@ -426,10 +462,11 @@ public class DbData {
         return database.delete("patients", "_id="+ id, null);
     }
     public long updatePatient(ContentValues patient, ContentValues address){
-
-       database.update("contacts",address , "patient_id="+patient.get("id"), null);
-       return database.update("patients", patient, "_id="+patient.get("id"), null);
-
+       if(checkPesel(patient.getAsInteger("pesel"))){
+           database.update("contacts",address , "patient_id="+patient.get("id"), null);
+           database.update("patients", patient, "_id="+patient.get("id"), null);
+           return 0;
+       } else return 1;
 
     }
     public long updatePayer(ContentValues payer){
