@@ -127,9 +127,11 @@ public class AddMedicalCertificate extends SherlockActivity {
       SaveInformationToDict();
         if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
         {    db.updateMedicalCertifcates(medical_certificate);
+
         }else{
             db.insertMedicalCertificate(medical_certificate);
         }
       db.close();
+      onBackPressed();
     }
 }
