@@ -35,13 +35,15 @@ public class DbData {
     }
 
     public long insertPatient(ContentValues patient) {
+        if(checkPesel(patient.getAsInteger("pesel"))){
+            database.insert( "patients", null, patient);
+            String selectQuery = "SELECT  * FROM  patients";
+            Cursor cursor = database.rawQuery(selectQuery, null);
+            cursor.moveToLast();
 
-        database.insert( "patients", null, patient);
-        String selectQuery = "SELECT  * FROM  patients";
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        cursor.moveToLast();
-
-        return cursor.getInt(0);
+            return cursor.getInt(0);
+        }
+        else return 1;
     }
     public long insertPatientAddress(ContentValues patientAddress) {
        return database.insert( "contacts", null, patientAddress);
@@ -532,5 +534,15 @@ public class DbData {
         return tempList;
 
          }
+    }
+    public boolean checkPesel(int pesel){
+        Cursor c = database.rawQuery("SELECT * FROM patients WHERE pesel="+pesel,null);
+        if(c.moveToFirst() && c.getCount() >= 1){
+            c.close();
+            return false ;
+        } else {
+            c.close();
+            return true;
+        }
     }
 }
