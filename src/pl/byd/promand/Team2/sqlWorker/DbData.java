@@ -597,7 +597,7 @@ public class DbData {
         }
     }
     public boolean checkNameInPayer(String payer){
-        Cursor c = database.rawQuery("SELECT * FROM patients WHERE payer=\""+payer+"\"",null);
+        Cursor c = database.rawQuery("SELECT * FROM payers WHERE name=\""+payer+"\"",null);
         if(c.moveToFirst() && c.getCount() >= 1){
             c.close();
             return false ;
