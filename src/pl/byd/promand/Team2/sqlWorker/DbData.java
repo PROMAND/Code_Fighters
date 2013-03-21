@@ -439,9 +439,10 @@ public class DbData {
         }else return 1;
     }
     public long updateVisit(ContentValues visit){
-        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
-            return
-                    database.update("visits", visit, "_id="+visit.get("_id"), null);
+        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))  {
+            database.update("visits", visit, "_id="+visit.get("_id"), null);
+            return 0;
+        }
         else return 1;
     }
     public long updateMedicalCertifcates (ContentValues mc){
