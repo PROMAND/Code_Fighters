@@ -422,8 +422,10 @@ public class DbData {
         return database.delete("patients", "_id="+ id, null);
     }
     public long updatePatient(ContentValues patient, ContentValues address){
+        if(checkPesel(patient.getAsInteger("pesel"))){
        database.update("contacts",address , "patient_id="+patient.get("id"), null);
        return database.update("patients", patient, "_id="+patient.get("id"), null);
+        } else return 1;
     }
     public long updatePayer(ContentValues payer){
         return database.update("payers", payer, "_id="+payer.get("id"), null);
