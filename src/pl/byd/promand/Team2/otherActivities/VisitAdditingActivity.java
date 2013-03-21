@@ -26,7 +26,8 @@ public class VisitAdditingActivity extends SherlockActivity {
     private String _Min;
     private ContentValues visitFields = new ContentValues();
     private DbData db = new DbData(this);
-    private void SaveInformationToDict(){
+    private String SaveInformationToDict(){
+        long received = 0;
         db.open();
 
         TextView tv_date = (TextView)findViewById(R.id.tv_yourDateResult);
@@ -35,13 +36,16 @@ public class VisitAdditingActivity extends SherlockActivity {
         EditText et_additional_info_visit = (EditText)findViewById(R.id.et_information);
         Integer patient_id;
         if(SearchingResultActivity.takePatient == null){
+            if(SearchingResultActivity.takeVisit == null) return "Choose patient";
             patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("patient_id")));
         }
         else {
             patient_id = Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id")));
         }
         String time = String.valueOf(tv_time.getText());
+        if(time.equals(getString(R.string.temp))) return "Choose time!";
         String date = String.valueOf(tv_date.getText());
+        if(date.equals(getString(R.string.temp))) return "Choose date!";
         Integer duration = Integer.parseInt(String.valueOf(sp_duration.getSelectedItem()));
         String additional_info_visit = String.valueOf(et_additional_info_visit.getText());
 
@@ -55,15 +59,19 @@ public class VisitAdditingActivity extends SherlockActivity {
         String extra = temp.getStringExtra("result");
         if(extra!=null && extra.equals("edVisit")){
          visitFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
-         db.updateVisit(visitFields);
+         received = db.updateVisit(visitFields);
         }
         else{
-        db.insertVisit(visitFields);
+            received = db.insertVisit(visitFields);
         }
         db.close();
         if(visitFields.get("_id")!=null) {
         SearchingResultActivity.takeVisit = visitFields;
         }
+        if(received==1){
+            return "This visit exist";
+        }
+      return null;
     }
     private void LoadFields(){
         ContentValues tempVisit = SearchingResultActivity.takeVisit;
@@ -215,11 +223,16 @@ public class VisitAdditingActivity extends SherlockActivity {
         Intent temp = VisitAdditingActivity.this.getIntent();
         String extra = temp.getStringExtra("result");
 
-            SaveInformationToDict();
+            String received = SaveInformationToDict();
+            if(received != null){
+                Toast.makeText(this,received,1).show();
+            }else{
+                onBackPressed();
+            }
 
 
 
-        onBackPressed();
+
 
 
 
