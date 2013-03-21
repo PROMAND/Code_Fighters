@@ -69,7 +69,7 @@ public class DbData {
             String country, state, town;
             Integer postal_code;
             String street, number_of_house, number_of_flat, phone, email;
-            _id = result.getInt(0);
+            _id = id;
             name = result.getString(1);
             surname = result.getString(2);
             sex = result.getString(3);
