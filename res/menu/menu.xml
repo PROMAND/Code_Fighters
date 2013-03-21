@@ -14,12 +14,8 @@
             android:title="Options">
         <menu>
             <item
-                    android:id="@+id/settings"
-                    android:title="Settings"/>
-            <item
                     android:id="@+id/about"
                     android:title="About"/>
-
         </menu>
     </item>
 
