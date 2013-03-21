@@ -28,7 +28,7 @@ public class VisitAdditingActivity extends SherlockActivity {
     private DbData db = new DbData(this);
     private String SaveInformationToDict(){
         long received = 0;
-        db.open();
+
 
         TextView tv_date = (TextView)findViewById(R.id.tv_yourDateResult);
         TextView tv_time = (TextView)findViewById(R.id.tv_yourTimeResult);
@@ -57,6 +57,7 @@ public class VisitAdditingActivity extends SherlockActivity {
 
         Intent temp = this.getIntent();
         String extra = temp.getStringExtra("result");
+        db.open();
         if(extra!=null && extra.equals("edVisit")){
          visitFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
          received = db.updateVisit(visitFields);
@@ -65,12 +66,14 @@ public class VisitAdditingActivity extends SherlockActivity {
             received = db.insertVisit(visitFields);
         }
         db.close();
-        if(visitFields.get("_id")!=null) {
-        SearchingResultActivity.takeVisit = visitFields;
-        }
         if(received==1){
             return "This visit exist";
         }
+        if(visitFields.get("_id")!=null && received!=1) {
+        SearchingResultActivity.takeVisit = db.getVisitById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeVisit.get("id"))));
+        }
+
+
       return null;
     }
     private void LoadFields(){
@@ -106,8 +109,10 @@ public class VisitAdditingActivity extends SherlockActivity {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.visit);
+
         Intent temp = this.getIntent();
         String result = temp.getStringExtra("result");
         dataPicker = new DatePickerDialog(this,mDateSetListener,2013,2,10);
@@ -222,6 +227,7 @@ public class VisitAdditingActivity extends SherlockActivity {
                 Toast.makeText(this,received,1).show();
             }else{
                 onBackPressed();
+
             }
 
 

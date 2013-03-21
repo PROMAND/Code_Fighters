@@ -78,7 +78,9 @@ public class SearchEditActivity extends SherlockActivity {
         this.startActivity(searchIntent);
     }
     public void btn_add_click(View v){
+            intent.putExtra("result","");
             SearchEditActivity.this.startActivity(intent);
+
     }
     //Selecting the menu iteam
     @Override

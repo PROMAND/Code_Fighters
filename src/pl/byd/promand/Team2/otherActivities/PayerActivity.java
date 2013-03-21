@@ -39,7 +39,7 @@ public class PayerActivity extends SherlockActivity {
         et_additional_info_payer.setText(String.valueOf(tempPayer.get("additional_info")));
     }
     private String SaveInformationToDict(){
-        db.open();
+
         EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
         EditText et_email_payer = (EditText)findViewById(R.id.et_email_payer);
         EditText et_phone_payer = (EditText)findViewById(R.id.et_phone_payer);
@@ -59,18 +59,23 @@ public class PayerActivity extends SherlockActivity {
         payerFields.put("additional_info",additional_info_payer);
         if(PayerActivity.this.getIntent().getStringExtra("result")!=null && PayerActivity.this.getIntent().getStringExtra("result").equals("edPayer")){
            payerFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
+            db.open();
            long temp = db.updatePayer(payerFields);
-            if(temp!=1)
-            SearchingResultActivity.takePayer = payerFields;
+            db.close();
+            if(temp!=1){
+            SearchingResultActivity.takePayer = db.getPayerById(Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
+            }
             else return "This payer exist!";
         }
         else {
+            db.open();
             long temp = db.insertPayer(payerFields);
+            db.close();
             if(temp == 1){
                return "This payer exist!";
             }
         }
-        db.close();
+
        return null;
     }
     @Override

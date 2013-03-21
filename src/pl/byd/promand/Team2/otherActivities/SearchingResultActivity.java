@@ -64,7 +64,7 @@ public class SearchingResultActivity extends SherlockActivity {
                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                       //String name= generalList.get(position);
                       takePatient = listResult.get(position);
-                      takeVisit = null;
+
                       takePayer = null;
                       takeMedicalCertificate = null;
 

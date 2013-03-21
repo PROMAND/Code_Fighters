@@ -57,7 +57,7 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM patients WHERE _id=" + id + " LIMIT 1",null);
+            Cursor result = database.rawQuery("select * from patients as p LEFT JOIN contacts as c ON p._id = c.patient_id WHERE p._id ="+ id,null);
             result.moveToFirst();
             int _id;
             String name;

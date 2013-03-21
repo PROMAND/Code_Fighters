@@ -26,7 +26,7 @@ public class PatientActivity extends SherlockActivity {
     private DbData db = new DbData(this);
 
     private String SaveInformationToDict(){
-        db.open();
+
         EditText et_name = (EditText)findViewById(R.id.et_name);
         EditText et_surname = (EditText)findViewById(R.id.et_surname);
         EditText et_sex = (EditText)findViewById(R.id.et_sex);
@@ -90,24 +90,25 @@ public class PatientActivity extends SherlockActivity {
         if(PatientActivity.this.getIntent().getStringExtra("result")!=null && PatientActivity.this.getIntent().getStringExtra("result").equals("edPatient")){
             patientFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
             patientAddressFields.put("patient_id", Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
-            long test = db.updatePatient(patientFields, patientAddressFields);
-            if(test!=1) {
-                patientFields.putAll(patientAddressFields);
-                SearchingResultActivity.takePatient = patientFields;
-            }
-            else return "Exist patient with the same ID";
+            db.open();
+            db.updatePatient(patientFields, patientAddressFields);
+            db.close();
+            SearchingResultActivity.takePatient = db.getPatientById(Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
+
         }
         else {
             long test = db.insertPatient(patientFields);
             if(test!=1) {
+                db.open();
                 patientAddressFields.put("patient_id", test);
                 db.insertPatientAddress(patientAddressFields);
+                db.close();
             }
             else
             return "Exist patient with the same ID";
         }
 
-        db.close();
+
         return null;
     }
     private void LoadFields(){
