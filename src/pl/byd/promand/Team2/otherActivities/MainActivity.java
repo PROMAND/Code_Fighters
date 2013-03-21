@@ -109,4 +109,13 @@ public class MainActivity extends SherlockActivity {
                     MainActivity.this.startActivity(intent);
                 }
             };
+
+    @Override
+    public void onResume(){
+        SearchingResultActivity.takeMedicalCertificate = null;
+        SearchingResultActivity.takePatient = null;
+        SearchingResultActivity.takePayer = null;
+        SearchingResultActivity.takeVisit = null;
+        super.onResume();
+    }
 }
