@@ -117,15 +117,20 @@ public class AddMedicalCertificate extends SherlockActivity {
     }
     public void btn_save_medical_certificate_click(View v){
       DbData db = new DbData(this);
-      db.open();
+
       SaveInformationToDict();
         if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
-        {    db.updateMedicalCertifcates(medical_certificate);
-
+        {   db.open();
+            db.updateMedicalCertifcates(medical_certificate);
+            db.close();
+            SearchingResultActivity.takeMedicalCertificate = db.getMedicalCertificateById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
         }else{
+            db.open();
             db.insertMedicalCertificate(medical_certificate);
+            db.close();
         }
-      db.close();
+
+
       onBackPressed();
     }
 }

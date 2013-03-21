@@ -471,7 +471,7 @@ public class DbData {
     }
     public long updatePayer(ContentValues payer){
         if(checkNameInPayer(payer.getAsString("name"))){
-            database.update("payers", payer, "_id="+payer.get("id"), null);
+            database.update("payers", payer, "_id="+payer.get("_id"), null);
             return 0 ;
         }else return 1;
     }
@@ -483,7 +483,7 @@ public class DbData {
         else return 1;
     }
     public long updateMedicalCertifcates (ContentValues mc){
-        return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);
+        return database.update("medical_certifcates", mc, "_id="+mc.get("_id"), null);
     }
     public boolean checkTime(String date,String time, Integer duration){
         String [] explodedDate = date.split("-");
