@@ -434,12 +434,14 @@ public class DbData {
     }
     public long updatePayer(ContentValues payer){
         if(checkNameInPayer(payer.getAsString("name"))){
-         return database.update("payers", payer, "_id="+payer.get("id"), null);
+            database.update("payers", payer, "_id="+payer.get("id"), null);
+            return 0 ;
         }else return 1;
     }
     public long updateVisit(ContentValues visit){
         if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
-            return database.update("visits", visit, "_id="+visit.get("_id"), null);
+            return
+                    database.update("visits", visit, "_id="+visit.get("_id"), null);
         else return 1;
     }
     public long updateMedicalCertifcates (ContentValues mc){
