@@ -145,7 +145,9 @@ public class DbData {
         return listPatient;
     }
     public long insertPayer(ContentValues payer) {
-        return database.insert( "payers", null, payer);
+        if(checkNameInPayer(payer.getAsString("name"))){
+             return database.insert( "payers", null, payer);
+        }else return 1;
     }
 
     public List<ContentValues> getPayers()  {
@@ -429,7 +431,9 @@ public class DbData {
 
     }
     public long updatePayer(ContentValues payer){
-        return database.update("payers", payer, "_id="+payer.get("id"), null);
+        if(checkNameInPayer(payer.getAsString("name"))){
+         return database.update("payers", payer, "_id="+payer.get("id"), null);
+        }else return 1;
     }
     public long updateVisit(ContentValues visit){
         if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
@@ -507,7 +511,7 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM visits WHERE date=\"" + mydate + "\"" ,null);
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE date=\"" + mydate + "\"", null);
             result.moveToFirst();
 
             String  date, time, additional_info;
@@ -538,8 +542,20 @@ public class DbData {
 
          }
     }
+
+
     public boolean checkPesel(int pesel){
         Cursor c = database.rawQuery("SELECT * FROM patients WHERE pesel="+pesel,null);
+        if(c.moveToFirst() && c.getCount() >= 1){
+            c.close();
+            return false ;
+        } else {
+            c.close();
+            return true;
+        }
+    }
+    public boolean checkNameInPayer(String payer){
+        Cursor c = database.rawQuery("SELECT * FROM patients WHERE payer=\""+payer+"\"",null);
         if(c.moveToFirst() && c.getCount() >= 1){
             c.close();
             return false ;
