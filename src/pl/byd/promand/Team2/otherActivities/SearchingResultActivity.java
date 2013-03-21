@@ -105,7 +105,7 @@ public class SearchingResultActivity extends SherlockActivity {
                        //String name= generalList.get(position);
                        takeVisit = listResult.get(position);
                        takePatient = null;
-                       takeMedicalCertificate = null;
+
                        //String pesel = String.valueOf(temp.get("pesel"));
                        onBackPressed();
                        // Toast.makeText(SearchingResultActivity.this, pesel, 1000).show();
@@ -136,7 +136,7 @@ public class SearchingResultActivity extends SherlockActivity {
                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                        //String name= generalList.get(position);
-                       takeMedicalCertificate = null;
+
                        takePatient = null;
                        takePayer = listResult.get(position);
                        //String pesel = String.valueOf(temp.get("pesel"));

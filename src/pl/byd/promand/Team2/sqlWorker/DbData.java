@@ -407,7 +407,7 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM visits WHERE _id=" + _id + " LIMIT 1",null);
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE _id=" + _id /* + " LIMIT 1"*/,null);
             result.moveToFirst();
 
             String  date, time, additional_info;

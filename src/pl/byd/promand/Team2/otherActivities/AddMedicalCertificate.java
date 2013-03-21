@@ -25,7 +25,6 @@ public class AddMedicalCertificate extends SherlockActivity {
     ContentValues medical_certificate = new ContentValues();
     Integer visit_id;
     Integer payer_id;
-    ContentValues temp = SearchingResultActivity.takeMedicalCertificate;
 
     private void SaveInformationToDict(){
         if(SearchingResultActivity.takePayer!=null){
@@ -40,7 +39,10 @@ public class AddMedicalCertificate extends SherlockActivity {
         medical_certificate.put("arrived",String.valueOf(cb.isChecked()));
         if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
         {
-            medical_certificate.put("_id",String.valueOf(temp.get("id")));
+           if(SearchingResultActivity.takeMedicalCertificate.get("id") != null)
+                                                  medical_certificate.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
+            if(SearchingResultActivity.takeMedicalCertificate.get("_id") != null)
+                                                    medical_certificate.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("_id"))));
 
 
         }
@@ -120,10 +122,10 @@ public class AddMedicalCertificate extends SherlockActivity {
 
       SaveInformationToDict();
         if(AddMedicalCertificate.this.getIntent().getStringExtra("result")!=null && AddMedicalCertificate.this.getIntent().getStringExtra("result").equals("edMedical"))
-        {   db.open();
+        {    db.open();
             db.updateMedicalCertifcates(medical_certificate);
             db.close();
-            SearchingResultActivity.takeMedicalCertificate = db.getMedicalCertificateById(Integer.parseInt(String.valueOf(SearchingResultActivity.takeMedicalCertificate.get("id"))));
+            SearchingResultActivity.takeMedicalCertificate = db.getMedicalCertificateById(Integer.parseInt(String.valueOf(medical_certificate.get("_id"))));
         }else{
             db.open();
             db.insertMedicalCertificate(medical_certificate);
