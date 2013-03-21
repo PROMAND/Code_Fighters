@@ -464,7 +464,7 @@ public class DbData {
     public long updatePatient(ContentValues patient, ContentValues address){
        if(checkPesel(patient.getAsInteger("pesel"))){
            database.update("contacts",address , "patient_id="+patient.get("id"), null);
-           database.update("patients", patient, "_id="+patient.get("id"), null);
+           database.update("patients", patient, "_id="+patient.get("_id"), null);
            return 0;
        } else return 1;
 
