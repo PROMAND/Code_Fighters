@@ -50,6 +50,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
                             android:id="@+id/et_email_payer"/>
                     <TextView
                             android:layout_width="wrap_content"
@@ -59,6 +60,7 @@
                     <EditText
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
                             android:id="@+id/et_phone_payer"/>
                     <TextView
                             android:layout_width="wrap_content"

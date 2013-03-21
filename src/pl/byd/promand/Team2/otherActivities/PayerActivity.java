@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -37,7 +38,7 @@ public class PayerActivity extends SherlockActivity {
         et_address.setText(String.valueOf(tempPayer.get("address")));
         et_additional_info_payer.setText(String.valueOf(tempPayer.get("additional_info")));
     }
-    private void SaveInformationToDict(){
+    private String SaveInformationToDict(){
         db.open();
         EditText et_name_of_company = (EditText)findViewById(R.id.et_name_of_company);
         EditText et_email_payer = (EditText)findViewById(R.id.et_email_payer);
@@ -50,7 +51,7 @@ public class PayerActivity extends SherlockActivity {
         String phone_payer = String.valueOf(et_phone_payer.getText());
         String address = String.valueOf(et_address.getText());
         String additional_info_payer = String.valueOf(et_additional_info_payer.getText());
-
+        if(name_of_company.equals("")) return "Empty name of company field!";
         payerFields.put("name",name_of_company);
         payerFields.put("email", email_payer);
         payerFields.put("phone",phone_payer);
@@ -58,14 +59,19 @@ public class PayerActivity extends SherlockActivity {
         payerFields.put("additional_info",additional_info_payer);
         if(PayerActivity.this.getIntent().getStringExtra("result")!=null && PayerActivity.this.getIntent().getStringExtra("result").equals("edPayer")){
            payerFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePayer.get("id"))));
-           db.updatePayer(payerFields);
+           long temp = db.updatePayer(payerFields);
+            if(temp!=1)
             SearchingResultActivity.takePayer = payerFields;
+            else return "This payer exist!";
         }
         else {
-            db.insertPayer(payerFields);
+            long temp = db.insertPayer(payerFields);
+            if(temp == 1){
+               return "This payer exist!";
+            }
         }
         db.close();
-
+       return null;
     }
     @Override
     public void onCreate(Bundle bundle){
@@ -80,8 +86,13 @@ public class PayerActivity extends SherlockActivity {
     public void btn_save_payer_click(View v){
 
 
-       SaveInformationToDict();
-       onBackPressed();
+       String temp = SaveInformationToDict();
+        if(temp !=null){
+            Toast.makeText(this,temp,1).show();
+        }
+        else{
+            onBackPressed();
+        }
 
     }
     public Intent intent;

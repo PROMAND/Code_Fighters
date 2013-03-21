@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -24,7 +25,7 @@ public class PatientActivity extends SherlockActivity {
     private ContentValues patientAddressFields = new ContentValues();
     private DbData db = new DbData(this);
 
-    private void SaveInformationToDict(){
+    private String SaveInformationToDict(){
         db.open();
         EditText et_name = (EditText)findViewById(R.id.et_name);
         EditText et_surname = (EditText)findViewById(R.id.et_surname);
@@ -57,6 +58,17 @@ public class PatientActivity extends SherlockActivity {
         String street = String.valueOf(et_street.getText());
         String number_of_house = String.valueOf(et_number_of_house.getText());
         String number_of_flat = String.valueOf(et_number_of_flat.getText());
+        if(name.equals("")) return "Empty name field!";
+        if(surname.equals("")) return "Empty surname field!";
+        if(sex.equals("")) return "Empty sex field!";
+        if(date_of_birth.equals("")) return "Empty date of birth field!";
+        if(id_patient.equals("")) return "Empty ID field!";
+        if(postal_code.equals("")) return "Empty postal code field!";
+        if(town.equals("")) return "Empty town field!";
+        if(street.equals("")) return "Empty street field!";
+        if(number_of_house.equals("")) return "Empty number of house field!";
+        if(number_of_flat.equals("")) return "Empty number of flat field!";
+
 
 
 
@@ -78,17 +90,25 @@ public class PatientActivity extends SherlockActivity {
         if(PatientActivity.this.getIntent().getStringExtra("result")!=null && PatientActivity.this.getIntent().getStringExtra("result").equals("edPatient")){
             patientFields.put("_id",Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
             patientAddressFields.put("patient_id", Integer.parseInt(String.valueOf(SearchingResultActivity.takePatient.get("id"))));
-            db.updatePatient(patientFields, patientAddressFields);
-            patientFields.putAll(patientAddressFields);
-            SearchingResultActivity.takePatient = patientFields;
+            long test = db.updatePatient(patientFields, patientAddressFields);
+            if(test!=1) {
+                patientFields.putAll(patientAddressFields);
+                SearchingResultActivity.takePatient = patientFields;
+            }
+            else return "Exist patient with the same ID";
         }
         else {
             long test = db.insertPatient(patientFields);
-            patientAddressFields.put("patient_id", test);
-            db.insertPatientAddress(patientAddressFields);
+            if(test!=1) {
+                patientAddressFields.put("patient_id", test);
+                db.insertPatientAddress(patientAddressFields);
+            }
+            else
+            return "Exist patient with the same ID";
         }
 
         db.close();
+        return null;
     }
     private void LoadFields(){
         EditText et_name = (EditText)findViewById(R.id.et_name);
@@ -137,8 +157,13 @@ public class PatientActivity extends SherlockActivity {
 
     public void btn_save_patient_click(View v){
         DbData db = null;
-        SaveInformationToDict();
-        onBackPressed();
+        String temp = SaveInformationToDict();
+        if(temp != null){
+            Toast.makeText(this,temp,1).show();
+        } else{
+            onBackPressed();
+        }
+
     }
     public Intent intent;
     //Selecting the menu iteam
