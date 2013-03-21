@@ -478,7 +478,7 @@ public class DbData {
             do{
                 qstart = cq.getInt(0);
                 qstop = cq.getInt(1);
-               if(qstart <= Integer.parseInt(begin) && Integer.parseInt(begin) <= qstop || qstart <= Integer.parseInt(end) && Integer.parseInt(end) <= qstop )
+               if(qstart <= Integer.parseInt(begin) && Integer.parseInt(begin) < qstop || qstart <= Integer.parseInt(end) && Integer.parseInt(end) < qstop )
                     {
                         cq.close();
                         return false;
