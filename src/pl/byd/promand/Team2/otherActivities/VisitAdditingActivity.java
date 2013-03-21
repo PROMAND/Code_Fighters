@@ -134,7 +134,7 @@ public class VisitAdditingActivity extends SherlockActivity {
         super.onResume();
     }
 
-        private DatePickerDialog.OnDateSetListener mDateSetListener =
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
 
                 public void onDateSet(DatePicker view, int year,
@@ -142,16 +142,16 @@ public class VisitAdditingActivity extends SherlockActivity {
                     _Year = String.valueOf(year);
                     monthOfYear++;
                     if(monthOfYear<10){
-                      _Month = "0" + String.valueOf(monthOfYear);
+                        _Month = "0" + String.valueOf(monthOfYear);
                     }
                     else {
-                      _Month = String.valueOf(monthOfYear);
+                        _Month = String.valueOf(monthOfYear);
                     }
                     if(dayOfMonth<10){
-                      _Day = "0" + String.valueOf(dayOfMonth);
+                        _Day = "0" + String.valueOf(dayOfMonth);
                     }
                     else{
-                     _Day = String.valueOf(dayOfMonth);
+                        _Day = String.valueOf(dayOfMonth);
                     }
                     TextView tv_result = (TextView)findViewById(R.id.tv_yourDateResult);
                     tv_result.setText(_Year + "-" + _Month + "-" + _Day);
