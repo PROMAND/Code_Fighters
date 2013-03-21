@@ -50,13 +50,7 @@ public class detailInfo extends SherlockActivity{
 	                this.startActivity(intent);
 
 	                return true;
-	            case R.id.settings:
-	                //going to setting actv
-	                intent = new Intent(this,SettingsActivity.class);
-	                this.startActivity(intent);
 
-
-	                return true;
 	            default:
 	                return super.onOptionsItemSelected(item);
 	        }
