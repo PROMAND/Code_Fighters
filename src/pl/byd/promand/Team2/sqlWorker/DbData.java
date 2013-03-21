@@ -426,9 +426,9 @@ public class DbData {
         return database.update("payers", payer, "_id="+payer.get("id"), null);
     }
     public long updateVisit(ContentValues visit){
-        //if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
-            return database.update("visits", visit, "_id="+visit.get("id"), null);
-      //  else return 0;
+        if(checkTime(String.valueOf(visit.get("date")),String.valueOf( visit.get("time")), Integer.parseInt(String.valueOf(visit.get("duration")))))
+            return database.update("visits", visit, "_id="+visit.get("_id"), null);
+        else return 0;
     }
     public long updateMedicalCertifcates (ContentValues mc){
         return database.update("medical_certifcates", mc, "_id="+mc.get("id"), null);

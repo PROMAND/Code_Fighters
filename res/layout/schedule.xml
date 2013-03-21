@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <LinearLayout
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_weight="1"
-                  android:layout_height="fill_parent">
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="10"
-                    android:text="@string/schedule"
-                    android:id="@+id/tv_schedule"/>
-            <ListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/lv_schedule"
-                    android:layout_gravity="center"/>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
+<LinearLayout android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+    <!-- Header -->
+    <LinearLayout android:id="@+id/header"
+        android:background="#ff347c12"
+        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_weight="6"
-        android:layout_height="fill_parent">
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_back"
-                android:id="@+id/btn_back"
-                android:drawableLeft="@drawable/arrow"
-                android:onClick="btn_back_click"
-                android:layout_gravity="center_vertical|right"/>
+        >
+        <TextView android:id="@+id/time"
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:width="60dip"
+            android:height="30dip"
+            android:text="Time"
+        />
+        
+        <TextView android:id="@+id/duration"
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:text="Duration"
+            android:width="60dip"
+            android:height="30dip"	
+        />
+        <TextView android:id="@+id/patient_name"
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:text="Name/Surnames"
+            android:width="130dip"
+            android:height="30dip"
+        />
     </LinearLayout>
+ 
+    <!-- List Divider -->
+    <View android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="?android:attr/listDivider" />
+ 
+    <!-- ListView (grid_items) -->
+
+        <ListView
+            android:id="@+id/list_schedule"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+        </ListView>
+
 </LinearLayout>

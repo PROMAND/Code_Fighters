@@ -116,7 +116,7 @@ public class SearchEditActivity extends SherlockActivity {
     @Override
     public void onResume(){
 
-        if(String.valueOf(spinner.getSelectedItem()).equals("Patient") && SearchingResultActivity.takePatient!=null){
+       if(String.valueOf(spinner.getSelectedItem()).equals("Patient") && SearchingResultActivity.takePatient!=null){
         ArrayList<String> generalList = new ArrayList<String>();
         generalList.add("Name: " + String.valueOf(SearchingResultActivity.takePatient.get("name")));
         generalList.add("Surname: " + String.valueOf(SearchingResultActivity.takePatient.get("surname")));
@@ -224,21 +224,23 @@ public class SearchEditActivity extends SherlockActivity {
 
     }
     public void btn_edit_click(View v){
-        if(choosedType.equals("Visit")){
-            intent.putExtra("result","edVisit");
-            SearchEditActivity.this.startActivity(intent);
-        }
-        if(choosedType.equals("Payer")){
-            intent.putExtra("result","edPayer");
-            SearchEditActivity.this.startActivity(intent);
-        }
-        if(choosedType.equals("Patient")){
-            intent.putExtra("result","edPatient");
-            SearchEditActivity.this.startActivity(intent);
-        }
-        if(choosedType.equals("Medical certificate")){
-            intent.putExtra("result","edMedical");
-            SearchEditActivity.this.startActivity(intent);
+        if(SearchingResultActivity.takeVisit!=null || SearchingResultActivity.takePayer!= null || SearchingResultActivity.takePatient!=null ||SearchingResultActivity.takeMedicalCertificate!=null){
+                if(choosedType.equals("Visit")){
+                    intent.putExtra("result","edVisit");
+                    SearchEditActivity.this.startActivity(intent);
+                }
+                if(choosedType.equals("Payer")){
+                    intent.putExtra("result","edPayer");
+                    SearchEditActivity.this.startActivity(intent);
+                }
+                if(choosedType.equals("Patient")){
+                    intent.putExtra("result","edPatient");
+                    SearchEditActivity.this.startActivity(intent);
+                }
+                if(choosedType.equals("Medical certificate")){
+                    intent.putExtra("result","edMedical");
+                    SearchEditActivity.this.startActivity(intent);
+                }
         }
     }
 }
