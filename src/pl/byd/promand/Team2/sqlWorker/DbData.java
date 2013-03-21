@@ -362,7 +362,7 @@ public class DbData {
         close();
         return temp;
     }
-    public ContentValues getVisitById(int id){
+    public ContentValues getVisitById(int _id){
         ContentValues temp = new ContentValues();
 
         if(database!=null && database.isOpen()){
@@ -371,18 +371,20 @@ public class DbData {
             return null;
         } else {
             open();
-            Cursor result = database.rawQuery("SELECT * FROM visits WHERE _id=" + id + " LIMIT 1",null);
+            Cursor result = database.rawQuery("SELECT * FROM visits WHERE _id=" + _id + " LIMIT 1",null);
             result.moveToFirst();
 
             String  date, time, additional_info;
-            int patient_id, duration;
+            int patient_id, duration, id;
 
+            id = _id;
             patient_id = result.getInt(1);
             date = result.getString(2);
             time = result.getString(3);
             duration = result.getInt(4);
             additional_info = result.getString(5);
 
+            temp.put("id", _id);
             temp.put("patient_id",patient_id);
             temp.put("date",date);
             temp.put("time",time);
