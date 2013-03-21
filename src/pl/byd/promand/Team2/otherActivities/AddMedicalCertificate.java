@@ -135,4 +135,16 @@ public class AddMedicalCertificate extends SherlockActivity {
 
       onBackPressed();
     }
+    @Override
+    public void onResume(){
+        if(SearchingResultActivity.takePayer!=null) {
+            TextView tvP = (TextView)findViewById(R.id.tv_yourPayerResult);
+            tvP.setText(String.valueOf(SearchingResultActivity.takePayer.get("name")));
+        }
+        if(SearchingResultActivity.takeVisit!=null) {
+            TextView tvP = (TextView)findViewById(R.id.tv_yourVisitResult);
+            tvP.setText(String.valueOf(SearchingResultActivity.takeVisit.get("date")) + " " + String.valueOf(SearchingResultActivity.takeVisit.get("time")));
+        }
+        super.onResume();
+    }
 }

@@ -97,9 +97,10 @@ public class PatientActivity extends SherlockActivity {
 
         }
         else {
+            db.open();
             long test = db.insertPatient(patientFields);
             if(test!=1) {
-                db.open();
+
                 patientAddressFields.put("patient_id", test);
                 db.insertPatientAddress(patientAddressFields);
                 db.close();

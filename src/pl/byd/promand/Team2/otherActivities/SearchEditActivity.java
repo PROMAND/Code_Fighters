@@ -253,19 +253,19 @@ public class SearchEditActivity extends SherlockActivity {
     }
     public void btn_edit_click(View v){
         if(SearchingResultActivity.takeVisit!=null || SearchingResultActivity.takePayer!= null || SearchingResultActivity.takePatient!=null ||SearchingResultActivity.takeMedicalCertificate!=null){
-                if(choosedType.equals("Visit")){
+                if(choosedType.equals("Visit") && SearchingResultActivity.takeVisit!=null){
                     intent.putExtra("result","edVisit");
                     SearchEditActivity.this.startActivity(intent);
                 }
-                if(choosedType.equals("Payer")){
+                if(choosedType.equals("Payer") && SearchingResultActivity.takePayer!= null){
                     intent.putExtra("result","edPayer");
                     SearchEditActivity.this.startActivity(intent);
                 }
-                if(choosedType.equals("Patient")){
+                if(choosedType.equals("Patient") && SearchingResultActivity.takePatient!=null){
                     intent.putExtra("result","edPatient");
                     SearchEditActivity.this.startActivity(intent);
                 }
-                if(choosedType.equals("Medical certificate")){
+                if(choosedType.equals("Medical certificate") && SearchingResultActivity.takeMedicalCertificate!=null){
                     intent.putExtra("result","edMedical");
                     SearchEditActivity.this.startActivity(intent);
                 }
